@@ -1,32 +1,32 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "permission": {
-    "bash": "ask",
-    "edit": "ask",
-    "webfetch": "allow",
-    "read": "allow"
-  },
-  "formatter": {
-    "biome": { "enabled": true }
-  },
-  "mcp": {
-    "Astro docs": {
-      "type": "remote",
-      "url": "https://mcp.docs.astro.build/mcp",
-      "enabled": true
-    }
-  },
-  "agent": {
-    "git": {
-      "description": "Stages changes with git, analyzes the diff, and commits with a conventional commit message. Use when asked to stage or commit work. May split across multiple focused commits. All git operations must be delegated to this sub-agent rather than run directly by the primary agent.",
-      "mode": "subagent",
-      "permission": {
-        "read": "allow",
-        "bash": {
-          "git *": "allow",
-          "*": "deny"
-        }
-      }
-    }
-  }
+	"$schema": "https://opencode.ai/config.json",
+	"permission": {
+		"bash": "ask",
+		"edit": "ask",
+		"webfetch": "allow",
+		"read": "allow"
+	},
+	"formatter": {
+		"biome": { "enabled": true }
+	},
+	"mcp": {
+		"Astro docs": {
+			"type": "remote",
+			"url": "https://mcp.docs.astro.build/mcp",
+			"enabled": true
+		}
+	},
+	"agent": {
+		"git": {
+			"description": "Stages changes with git, analyzes the diff, and commits with a conventional commit message. Use when asked to stage or commit work. May split across multiple focused commits. All git operations must be delegated to this sub-agent rather than run directly by the primary agent.",
+			"mode": "subagent",
+			"permission": {
+				"read": "allow",
+				"bash": {
+					"git *": "allow",
+					"*": "deny"
+				}
+			}
+		}
+	}
 }
