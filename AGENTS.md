@@ -1,8 +1,20 @@
 # BushbladeKnivesAstro
 
+**Goal:** Rebuild [bushblade.co.uk](https://bushblade.co.uk) — a static site for a custom bushcraft knife-making business. Original site built with Gatsby.
+
 Minimal [Astro](https://astro.build) v6.4.7 site (`astro/tsconfigs/strict`, TypeScript v6, pnpm v11).
 
 **Dev environment:** Tmux · Fish shell · Ghostty terminal · Neovim
+
+**Image assets** from the original Gatsby site are stored in `src/images/` (banners, knife photography, SVGs, etc.).
+
+## Todo
+
+- [ ] Rebuild existing pages (Home, About, Contact, Posts)
+- [ ] Set up content collections (blog posts, knife data via Markdown/MDX)
+- [ ] Theme and styling — pull colours, fonts, design from original site into Tailwind
+- [ ] Image handling — set up image assets/optimisation (knife photography)
+- [ ] Knife product pages (Woodlore Clone, Midi)
 
 ## Commands
 
