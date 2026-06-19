@@ -35,3 +35,15 @@ Minimal [Astro](https://astro.build) v6.4.7 site (`astro/tsconfigs/strict`, Type
 - **Don't build after every change**: Astro dev server (`pnpm dev`) has instant HMR. Only build when explicitly asked or when ready for a production check.
 - **TypeScript in `<script>` tags**: Astro supports TypeScript in `<script>` blocks by default. Use `as` type assertions (e.g. `const el = document.querySelector(...) as HTMLElement | null`) for DOM queries to satisfy strict typing.
 - **GSAP** is installed for animations (logo scroll effect, mobile menu open/close with cascade). Animations use `back.out()` for playful bounce, `power2.out` for snappy exits, and `stagger` for sequenced child elements.
+
+## Agent Skills
+
+GSAP skills are available in `.agents/skills/` for authored guidance on animations:
+
+- **gsap-core** — core API: `to()`, `from()`, `fromTo()`, easing, duration, stagger, timelines, defaults, `gsap.matchMedia()`
+- **gsap-plugins** — ScrollToPlugin, Flip, Draggable, SplitText, CustomEase, and other plugins
+- **gsap-scrolltrigger** — scroll-linked animations, pinning, scrub, triggers
+- **gsap-performance** — optimising animations, avoiding layout thrashing, `will-change`
+- **gsap-utils** — `clamp`, `mapRange`, `normalize`, `random`, `snap`, `wrap`, `pipe`, `interpolate`
+
+Load one with the `skill` tool when the task matches its description.
