@@ -97,8 +97,8 @@ const socialLinks = [
 <script>
 	import { gsap } from "gsap";
 
-const socialRow = document.querySelector(".social-row");
-const logo = document.getElementById("logo-link");
+const socialRow = document.querySelector(".social-row") as HTMLElement | null;
+const logo = document.getElementById("logo-link") as HTMLElement | null;
 if (socialRow && logo) {
 		gsap.set(logo, { y: -28, scale: 1 });
 		let isScrolled = false;
