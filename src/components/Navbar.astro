@@ -1,0 +1,133 @@
+---
+import Facebook from "./icons/Facebook.astro";
+import Instagram from "./icons/Instagram.astro";
+import Twitter from "./icons/Twitter.astro";
+import YouTube from "./icons/YouTube.astro";
+import Logo from "./Logo.astro";
+---
+
+<nav
+	id="main-nav"
+	class="bg-olive text-dark-gray sticky top-0 z-50 overflow-hidden"
+>
+	<div
+		class="absolute inset-0 flex items-center justify-center pointer-events-none"
+	>
+		<a href="/" class="logo-link pointer-events-auto block w-72">
+			<Logo class="w-full h-auto" />
+		</a>
+	</div>
+
+	<div class="social-row h-12 overflow-hidden">
+		<div class="flex items-center h-full px-4">
+			<div class="flex items-center gap-3">
+				<a
+					href="https://www.facebook.com/Bushbladehandmadeknives/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-facebook transition-colors"
+					aria-label="Facebook"
+				>
+					<Facebook class="w-4 h-4" />
+				</a>
+				<a
+					href="https://www.instagram.com/bushblade/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-instagram transition-colors"
+					aria-label="Instagram"
+				>
+					<Instagram class="w-4 h-4" />
+				</a>
+				<a
+					href="https://x.com/Bushblade"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-twitter transition-colors"
+					aria-label="Twitter / X"
+				>
+					<Twitter class="w-4 h-4" />
+				</a>
+				<a
+					href="https://www.youtube.com/@bushbladehandmadeknives2528"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-youtube transition-colors"
+					aria-label="YouTube"
+				>
+					<YouTube class="w-4 h-4" />
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="h-12 overflow-hidden">
+		<div
+			class="flex items-center justify-between h-full px-4 text-sm uppercase tracking-wider"
+		>
+			<div class="flex items-center gap-6">
+				<a href="/" class="hover:opacity-80 transition-colors">Home</a>
+				<a href="/about" class="hover:opacity-80 transition-colors">About</a>
+				<a href="/contact" class="hover:opacity-80 transition-colors">Contact</a>
+				<a href="/posts" class="hover:opacity-80 transition-colors">Posts</a>
+			</div>
+			<div class="flex items-center gap-6">
+				<a
+					href="/knives/woodlore-clone"
+					class="hover:opacity-80 transition-colors"
+				>
+					Woodlore Clone
+				</a>
+				<a href="/knives/midi" class="hover:opacity-80 transition-colors">
+					Midi
+				</a>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<style>
+	nav {
+		height: 96px;
+		transition: height 300ms;
+	}
+	nav.scrolled {
+		height: 48px;
+	}
+	.social-row {
+		transition: height 300ms, opacity 300ms;
+	}
+	nav.scrolled .social-row {
+		height: 0;
+		opacity: 0;
+	}
+	.logo-link {
+		transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+		transform-origin: center center;
+	}
+	nav.scrolled .logo-link {
+		transform: scale(0.55);
+	}
+</style>
+
+<script>
+	const nav = document.getElementById("main-nav");
+	if (nav) {
+		let ticking = false;
+		const update = () => {
+			nav.classList.toggle("scrolled", window.scrollY > 50);
+			ticking = false;
+		};
+		update();
+		window.addEventListener(
+			"scroll",
+			() => {
+				if (!ticking) {
+					requestAnimationFrame(update);
+					ticking = true;
+				}
+			},
+			{ passive: true },
+		);
+	}
+</script>
