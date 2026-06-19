@@ -1,0 +1,83 @@
+---
+import { leftLinks, rightLinks } from "../data/links";
+import Close from "./icons/Close.astro";
+import Facebook from "./icons/Facebook.astro";
+import Instagram from "./icons/Instagram.astro";
+import Twitter from "./icons/Twitter.astro";
+import YouTube from "./icons/YouTube.astro";
+
+const socialLinks = [
+	{
+		href: "https://www.facebook.com/Bushbladehandmadeknives/",
+		icon: Facebook,
+		hoverColor: "hover:text-facebook",
+		ariaLabel: "Facebook",
+	},
+	{
+		href: "https://www.instagram.com/bushblade/",
+		icon: Instagram,
+		hoverColor: "hover:text-instagram",
+		ariaLabel: "Instagram",
+	},
+	{
+		href: "https://x.com/Bushblade",
+		icon: Twitter,
+		hoverColor: "hover:text-twitter",
+		ariaLabel: "Twitter / X",
+	},
+	{
+		href: "https://www.youtube.com/@bushbladehandmadeknives2528",
+		icon: YouTube,
+		hoverColor: "hover:text-youtube",
+		ariaLabel: "YouTube",
+	},
+];
+---
+
+<div
+	id="mobile-menu"
+	class="fixed inset-0 z-50 bg-charcoal hidden"
+>
+	<div class="flex flex-col items-center justify-center h-full">
+		<button
+			id="close-btn"
+			class="absolute right-4 top-4 w-10 h-10 flex items-center justify-center text-white"
+		>
+			<Close class="w-6 h-6" />
+		</button>
+
+		<div class="flex flex-col items-center gap-8 text-white text-xl italic tracking-wider">
+			{leftLinks.map(({ href, label }) => (
+				<a href={href} class="hover:text-olive transition-colors">{label}</a>
+			))}
+			{rightLinks.map(({ href, label }) => (
+				<a href={href} class="hover:text-olive transition-colors">{label}</a>
+			))}
+		</div>
+
+		<div class="flex items-center gap-6 mt-10">
+			{socialLinks.map(({ href, icon: Icon, ariaLabel }) => (
+				<a
+					{href}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-white hover:text-olive transition-colors"
+					aria-label={ariaLabel}
+				>
+					<Icon class="w-6 h-6" />
+				</a>
+			))}
+		</div>
+	</div>
+</div>
+
+<script>
+const burgerBtn = document.getElementById("burger-btn") as HTMLElement | null;
+const closeBtn = document.getElementById("close-btn") as HTMLElement | null;
+const mobileMenu = document.getElementById("mobile-menu") as HTMLElement | null;
+if (burgerBtn && closeBtn && mobileMenu) {
+	const toggle = () => mobileMenu.classList.toggle("hidden");
+	burgerBtn.addEventListener("click", toggle);
+	closeBtn.addEventListener("click", toggle);
+}
+</script>

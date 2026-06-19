@@ -1,23 +1,14 @@
 ---
+import { leftLinks, rightLinks } from "../data/links";
 import Facebook from "./icons/Facebook.astro";
+import Hamburger from "./icons/Hamburger.astro";
 import Instagram from "./icons/Instagram.astro";
 import Twitter from "./icons/Twitter.astro";
 import YouTube from "./icons/YouTube.astro";
 import Logo from "./Logo.astro";
+import MobileMenu from "./MobileMenu.astro";
 
 const currentPath = Astro.url.pathname;
-
-const leftLinks = [
-	{ href: "/", label: "Home" },
-	{ href: "/about", label: "About" },
-	{ href: "/contact", label: "Contact" },
-	{ href: "/posts", label: "Posts" },
-];
-
-const rightLinks = [
-	{ href: "/knives/woodlore-clone", label: "Woodlore Clone" },
-	{ href: "/knives/midi", label: "Midi" },
-];
 
 const socialLinks = [
 	{
@@ -47,7 +38,7 @@ const socialLinks = [
 ];
 ---
 
-<div class="social-row h-14 bg-olive">
+<div class="social-row h-14 bg-olive max-lg:hidden">
 	<div class="flex items-center h-full px-4">
 		<div class="flex items-center gap-3">
 			{socialLinks.map(({ href, icon: Icon, hoverColor, ariaLabel }) => (
@@ -75,7 +66,7 @@ const socialLinks = [
 		<div
 			class="grid grid-cols-[1fr_320px_1fr] items-stretch h-full text-xl italic tracking-wider"
 		>
-			<div class="flex items-center justify-center gap-6">
+			<div class="flex items-center justify-center gap-6 max-lg:hidden">
 				{leftLinks.map(({ href, label }) => (
 					<span class="h-full flex items-start pt-1.5" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
 						<a href={href} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
@@ -83,7 +74,7 @@ const socialLinks = [
 				))}
 			</div>
 			<div></div>
-			<div class="flex items-center justify-center gap-6">
+			<div class="flex items-center justify-center gap-6 max-lg:hidden">
 				{rightLinks.map(({ href, label }) => (
 					<span class="h-full flex items-start pt-1.5" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
 						<a href={href} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
@@ -91,16 +82,25 @@ const socialLinks = [
 				))}
 			</div>
 		</div>
+		<button
+			id="burger-btn"
+			class="hidden max-lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 text-dark-gray"
+		>
+			<Hamburger class="w-6 h-6" />
+		</button>
 	</div>
 </nav>
+
+<MobileMenu />
 
 <script>
 	import { gsap } from "gsap";
 
 const socialRow = document.querySelector(".social-row") as HTMLElement | null;
 const logo = document.getElementById("logo-link") as HTMLElement | null;
-if (socialRow && logo) {
-		gsap.set(logo, { y: -28, scale: 1 });
+	if (socialRow && logo) {
+		const rowHeight = socialRow.offsetHeight;
+		gsap.set(logo, { y: rowHeight > 0 ? -28 : 0, scale: rowHeight > 0 ? 1 : 0.55 });
 		let isScrolled = false;
 
 	const update = () => {
@@ -120,5 +120,6 @@ if (socialRow && logo) {
 
 	update();
 	window.addEventListener("scroll", update, { passive: true });
+	window.addEventListener("resize", update, { passive: true });
 }
 </script>
