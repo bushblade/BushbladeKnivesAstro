@@ -82,32 +82,31 @@ const socialLinks = [
 				))}
 			</div>
 		</div>
-		<button
-			id="burger-btn"
-			class="hidden max-lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-10 h-10 text-dark-gray"
-		>
-			<Hamburger class="w-6 h-6" />
-		</button>
 	</div>
 </nav>
+<button
+	id="burger-btn"
+	class="hidden max-lg:flex fixed right-4 top-7 z-[60] -translate-y-1/2 items-center justify-center w-12 h-12 text-dark-gray cursor-pointer"
+>
+	<Hamburger class="w-7 h-7" />
+</button>
 
-<MobileMenu />
+<MobileMenu currentPath={currentPath} />
 
 <script>
-	import { gsap } from 'gsap'
+import { gsap } from 'gsap'
 
 const socialRow = document.querySelector('.social-row') as HTMLElement | null
 const logo = document.getElementById('logo-link') as HTMLElement | null
-	if (socialRow && logo) {
-		const rowHeight = socialRow.offsetHeight
-		gsap.set(logo, { y: rowHeight > 0 ? -28 : 0, scale: rowHeight > 0 ? 1 : 0.55 })
-		let isScrolled = false
+if (socialRow && logo) {
+	const rowHeight = socialRow.offsetHeight
+	gsap.set(logo, { y: rowHeight > 0 ? -28 : 0, scale: rowHeight > 0 ? 1 : 0.55 })
+	let isScrolled = false
 
 	const update = () => {
 		const shouldBeScrolled = window.scrollY >= socialRow.offsetHeight
 		if (shouldBeScrolled !== isScrolled) {
 			isScrolled = shouldBeScrolled
-
 			gsap.to(logo, {
 				y: isScrolled ? 0 : -28,
 				scale: isScrolled ? 0.55 : 1,
@@ -121,5 +120,57 @@ const logo = document.getElementById('logo-link') as HTMLElement | null
 	update()
 	window.addEventListener('scroll', update, { passive: true })
 	window.addEventListener('resize', update, { passive: true })
+}
+
+const burgerBtn = document.getElementById('burger-btn') as HTMLElement | null
+const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null
+
+if (burgerBtn && mobileMenu) {
+	let isOpen = false
+	const svg = burgerBtn.querySelector('svg')
+	const topPath = svg?.querySelector('.burger-top')
+	const midPath = svg?.querySelector('.burger-mid')
+	const botPath = svg?.querySelector('.burger-bot')
+	const children = mobileMenu.querySelectorAll('a')
+
+	const openMenu = () => {
+		if (isOpen) return
+		isOpen = true
+
+		if (topPath) gsap.to(topPath, { attr: { d: 'M5 5 L19 19' }, duration: 0.3, ease: 'back.out(1.5)' })
+		if (midPath) gsap.to(midPath, { opacity: 0, duration: 0.2 })
+		if (botPath) gsap.to(botPath, { attr: { d: 'M19 5 L5 19' }, duration: 0.3, ease: 'back.out(1.5)' })
+		gsap.to(burgerBtn, { color: '#fff', duration: 0.2 })
+
+		gsap.set(mobileMenu, { opacity: 0, scale: 0.95 })
+		gsap.set(children, { opacity: 0, y: 20 })
+		mobileMenu.classList.remove('invisible', 'pointer-events-none')
+		gsap.to(mobileMenu, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.5)' })
+		gsap.to(children, { opacity: 1, y: 0, duration: 0.3, stagger: 0.06, ease: 'power2.out' })
+	}
+
+	const closeMenu = () => {
+		if (!isOpen) return
+		isOpen = false
+
+		if (topPath) gsap.to(topPath, { attr: { d: 'M3 6 L21 6' }, duration: 0.3, ease: 'back.out(1.5)' })
+		if (midPath) gsap.to(midPath, { opacity: 1, duration: 0.2 })
+		if (botPath) gsap.to(botPath, { attr: { d: 'M3 18 L21 18' }, duration: 0.3, ease: 'back.out(1.5)' })
+		gsap.to(burgerBtn, { color: '#333', duration: 0.2 })
+
+		gsap.to(mobileMenu, {
+			opacity: 0,
+			scale: 0.95,
+			duration: 0.2,
+			ease: 'power2.out',
+			onComplete: () => mobileMenu.classList.add('invisible', 'pointer-events-none'),
+		})
+	}
+
+	burgerBtn.addEventListener('click', () => (isOpen ? closeMenu() : openMenu()))
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && isOpen) closeMenu()
+	})
 }
 </script>
