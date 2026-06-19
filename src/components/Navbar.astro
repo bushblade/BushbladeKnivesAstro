@@ -20,53 +20,73 @@ const rightLinks = [
 ];
 
 const socialLinks = [
-	{ href: "https://www.facebook.com/Bushbladehandmadeknives/", icon: Facebook, hoverColor: "hover:text-facebook", ariaLabel: "Facebook" },
-	{ href: "https://www.instagram.com/bushblade/", icon: Instagram, hoverColor: "hover:text-instagram", ariaLabel: "Instagram" },
-	{ href: "https://x.com/Bushblade", icon: Twitter, hoverColor: "hover:text-twitter", ariaLabel: "Twitter / X" },
-	{ href: "https://www.youtube.com/@bushbladehandmadeknives2528", icon: YouTube, hoverColor: "hover:text-youtube", ariaLabel: "YouTube" },
+	{
+		href: "https://www.facebook.com/Bushbladehandmadeknives/",
+		icon: Facebook,
+		hoverColor: "hover:text-facebook",
+		ariaLabel: "Facebook",
+	},
+	{
+		href: "https://www.instagram.com/bushblade/",
+		icon: Instagram,
+		hoverColor: "hover:text-instagram",
+		ariaLabel: "Instagram",
+	},
+	{
+		href: "https://x.com/Bushblade",
+		icon: Twitter,
+		hoverColor: "hover:text-twitter",
+		ariaLabel: "Twitter / X",
+	},
+	{
+		href: "https://www.youtube.com/@bushbladehandmadeknives2528",
+		icon: YouTube,
+		hoverColor: "hover:text-youtube",
+		ariaLabel: "YouTube",
+	},
 ];
 ---
 
+<div class="social-row h-14 bg-olive">
+	<div class="flex items-center h-full px-4">
+		<div class="flex items-center gap-3">
+			{socialLinks.map(({ href, icon: Icon, hoverColor, ariaLabel }) => (
+				<a {href} target="_blank" rel="noopener noreferrer" class={`${hoverColor} transition-colors`} aria-label={ariaLabel}>
+					<Icon class="w-4 h-4" />
+				</a>
+			))}
+		</div>
+	</div>
+</div>
+
 <nav
 	id="main-nav"
-	class="bg-olive text-dark-gray sticky top-0 z-50 overflow-hidden"
+	class="bg-olive text-dark-gray sticky top-0 z-50 h-14"
 >
 	<div
-		class="absolute inset-0 flex items-center justify-center pointer-events-none"
+		class="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
 	>
 		<a href="/" id="logo-link" class="pointer-events-auto block w-80">
 			<Logo class="w-full h-auto" />
 		</a>
 	</div>
 
-	<div class="social-row h-16 overflow-hidden">
-		<div class="flex items-center h-full px-4">
-			<div class="flex items-center gap-3">
-				{socialLinks.map(({ href, icon: Icon, hoverColor, ariaLabel }) => (
-					<a {href} target="_blank" rel="noopener noreferrer" class={`${hoverColor} transition-colors`} aria-label={ariaLabel}>
-						<Icon class="w-4 h-4" />
-					</a>
-				))}
-			</div>
-		</div>
-	</div>
-
-	<div class="h-16 overflow-hidden">
+	<div class="h-14">
 		<div
 			class="grid grid-cols-[1fr_320px_1fr] items-stretch h-full text-xl italic tracking-wider"
 		>
 			<div class="flex items-center justify-center gap-6">
 				{leftLinks.map(({ href, label }) => (
-					<span class="h-full flex items-center" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
-						<a href={href} class="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)] transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]">{label}</a>
+					<span class="h-full flex items-start pt-1.5" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
+						<a href={href} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
 					</span>
 				))}
 			</div>
 			<div></div>
 			<div class="flex items-center justify-center gap-6">
 				{rightLinks.map(({ href, label }) => (
-					<span class="h-full flex items-center" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
-						<a href={href} class="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)] transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]">{label}</a>
+					<span class="h-full flex items-start pt-1.5" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
+						<a href={href} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
 					</span>
 				))}
 			</div>
@@ -74,47 +94,31 @@ const socialLinks = [
 	</div>
 </nav>
 
-<style>
-	nav {
-		height: 128px;
-		transition: height 300ms;
-	}
-	nav.scrolled {
-		height: 64px;
-	}
-	.social-row {
-		transition: height 300ms, opacity 300ms;
-	}
-	nav.scrolled .social-row {
-		height: 0;
-		opacity: 0;
-	}
-</style>
-
 <script>
 	import { gsap } from "gsap";
 
-	const nav = document.getElementById("main-nav");
-	const logo = document.getElementById("logo-link");
-	if (nav && logo) {
+const socialRow = document.querySelector(".social-row");
+const logo = document.getElementById("logo-link");
+if (socialRow && logo) {
+		gsap.set(logo, { y: -28, scale: 1 });
 		let isScrolled = false;
 
-		const update = () => {
-			const shouldBeScrolled = window.scrollY > 50;
-			if (shouldBeScrolled !== isScrolled) {
-				isScrolled = shouldBeScrolled;
-				nav.classList.toggle("scrolled", isScrolled);
+	const update = () => {
+		const shouldBeScrolled = window.scrollY >= socialRow.offsetHeight;
+		if (shouldBeScrolled !== isScrolled) {
+			isScrolled = shouldBeScrolled;
 
-				gsap.to(logo, {
-					scale: isScrolled ? 0.6 : 1,
-					duration: 0.4,
-					ease: "back.out(1.7)",
-					overwrite: "auto",
-				});
-			}
-		};
+			gsap.to(logo, {
+				y: isScrolled ? 0 : -28,
+				scale: isScrolled ? 0.55 : 1,
+				duration: 0.4,
+				ease: "back.out(1.7)",
+				overwrite: "auto",
+			});
+		}
+	};
 
-		update();
-		window.addEventListener("scroll", update, { passive: true });
-	}
+	update();
+	window.addEventListener("scroll", update, { passive: true });
+}
 </script>
