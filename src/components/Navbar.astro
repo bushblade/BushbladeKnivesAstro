@@ -101,33 +101,32 @@ import Logo from "./Logo.astro";
 		height: 0;
 		opacity: 0;
 	}
-	.logo-link {
-		transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
-		transform-origin: center center;
-	}
-	nav.scrolled .logo-link {
-		transform: scale(0.55);
-	}
 </style>
 
 <script>
+	import { gsap } from "gsap";
+
 	const nav = document.getElementById("main-nav");
-	if (nav) {
-		let ticking = false;
+	const logo = document.querySelector(".logo-link");
+	if (nav && logo) {
+		let isScrolled = false;
+
 		const update = () => {
-			nav.classList.toggle("scrolled", window.scrollY > 50);
-			ticking = false;
+			const shouldBeScrolled = window.scrollY > 50;
+			if (shouldBeScrolled !== isScrolled) {
+				isScrolled = shouldBeScrolled;
+				nav.classList.toggle("scrolled", isScrolled);
+
+				gsap.to(logo, {
+					scale: isScrolled ? 0.55 : 1,
+					duration: 0.4,
+					ease: "back.out(1.7)",
+					overwrite: "auto",
+				});
+			}
 		};
+
 		update();
-		window.addEventListener(
-			"scroll",
-			() => {
-				if (!ticking) {
-					requestAnimationFrame(update);
-					ticking = true;
-				}
-			},
-			{ passive: true },
-		);
+		window.addEventListener("scroll", update, { passive: true });
 	}
 </script>
