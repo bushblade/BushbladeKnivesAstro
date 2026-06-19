@@ -1,37 +1,37 @@
 ---
-import { leftLinks, rightLinks } from "../data/links";
-import Close from "./icons/Close.astro";
-import Facebook from "./icons/Facebook.astro";
-import Instagram from "./icons/Instagram.astro";
-import Twitter from "./icons/Twitter.astro";
-import YouTube from "./icons/YouTube.astro";
+import { leftLinks, rightLinks } from '../data/links'
+import Close from './icons/Close.astro'
+import Facebook from './icons/Facebook.astro'
+import Instagram from './icons/Instagram.astro'
+import Twitter from './icons/Twitter.astro'
+import YouTube from './icons/YouTube.astro'
 
 const socialLinks = [
 	{
-		href: "https://www.facebook.com/Bushbladehandmadeknives/",
+		href: 'https://www.facebook.com/Bushbladehandmadeknives/',
 		icon: Facebook,
-		hoverColor: "hover:text-facebook",
-		ariaLabel: "Facebook",
+		hoverColor: 'hover:text-facebook',
+		ariaLabel: 'Facebook',
 	},
 	{
-		href: "https://www.instagram.com/bushblade/",
+		href: 'https://www.instagram.com/bushblade/',
 		icon: Instagram,
-		hoverColor: "hover:text-instagram",
-		ariaLabel: "Instagram",
+		hoverColor: 'hover:text-instagram',
+		ariaLabel: 'Instagram',
 	},
 	{
-		href: "https://x.com/Bushblade",
+		href: 'https://x.com/Bushblade',
 		icon: Twitter,
-		hoverColor: "hover:text-twitter",
-		ariaLabel: "Twitter / X",
+		hoverColor: 'hover:text-twitter',
+		ariaLabel: 'Twitter / X',
 	},
 	{
-		href: "https://www.youtube.com/@bushbladehandmadeknives2528",
+		href: 'https://www.youtube.com/@bushbladehandmadeknives2528',
 		icon: YouTube,
-		hoverColor: "hover:text-youtube",
-		ariaLabel: "YouTube",
+		hoverColor: 'hover:text-youtube',
+		ariaLabel: 'YouTube',
 	},
-];
+]
 ---
 
 <div
@@ -72,12 +72,12 @@ const socialLinks = [
 </div>
 
 <script>
-const burgerBtn = document.getElementById("burger-btn") as HTMLElement | null;
-const closeBtn = document.getElementById("close-btn") as HTMLElement | null;
-const mobileMenu = document.getElementById("mobile-menu") as HTMLElement | null;
+const burgerBtn = document.getElementById('burger-btn') as HTMLElement | null
+const closeBtn = document.getElementById('close-btn') as HTMLElement | null
+const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null
 if (burgerBtn && closeBtn && mobileMenu) {
-	const toggle = () => mobileMenu.classList.toggle("hidden");
-	burgerBtn.addEventListener("click", toggle);
-	closeBtn.addEventListener("click", toggle);
+	const toggle = () => mobileMenu.classList.toggle('hidden')
+	burgerBtn.addEventListener('click', toggle)
+	closeBtn.addEventListener('click', toggle)
 }
 </script>

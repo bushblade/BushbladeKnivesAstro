@@ -1,41 +1,41 @@
 ---
-import { leftLinks, rightLinks } from "../data/links";
-import Facebook from "./icons/Facebook.astro";
-import Hamburger from "./icons/Hamburger.astro";
-import Instagram from "./icons/Instagram.astro";
-import Twitter from "./icons/Twitter.astro";
-import YouTube from "./icons/YouTube.astro";
-import Logo from "./Logo.astro";
-import MobileMenu from "./MobileMenu.astro";
+import { leftLinks, rightLinks } from '../data/links'
+import Facebook from './icons/Facebook.astro'
+import Hamburger from './icons/Hamburger.astro'
+import Instagram from './icons/Instagram.astro'
+import Twitter from './icons/Twitter.astro'
+import YouTube from './icons/YouTube.astro'
+import Logo from './Logo.astro'
+import MobileMenu from './MobileMenu.astro'
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname
 
 const socialLinks = [
 	{
-		href: "https://www.facebook.com/Bushbladehandmadeknives/",
+		href: 'https://www.facebook.com/Bushbladehandmadeknives/',
 		icon: Facebook,
-		hoverColor: "hover:text-facebook",
-		ariaLabel: "Facebook",
+		hoverColor: 'hover:text-facebook',
+		ariaLabel: 'Facebook',
 	},
 	{
-		href: "https://www.instagram.com/bushblade/",
+		href: 'https://www.instagram.com/bushblade/',
 		icon: Instagram,
-		hoverColor: "hover:text-instagram",
-		ariaLabel: "Instagram",
+		hoverColor: 'hover:text-instagram',
+		ariaLabel: 'Instagram',
 	},
 	{
-		href: "https://x.com/Bushblade",
+		href: 'https://x.com/Bushblade',
 		icon: Twitter,
-		hoverColor: "hover:text-twitter",
-		ariaLabel: "Twitter / X",
+		hoverColor: 'hover:text-twitter',
+		ariaLabel: 'Twitter / X',
 	},
 	{
-		href: "https://www.youtube.com/@bushbladehandmadeknives2528",
+		href: 'https://www.youtube.com/@bushbladehandmadeknives2528',
 		icon: YouTube,
-		hoverColor: "hover:text-youtube",
-		ariaLabel: "YouTube",
+		hoverColor: 'hover:text-youtube',
+		ariaLabel: 'YouTube',
 	},
-];
+]
 ---
 
 <div class="social-row h-14 bg-olive max-lg:hidden">
@@ -94,32 +94,32 @@ const socialLinks = [
 <MobileMenu />
 
 <script>
-	import { gsap } from "gsap";
+	import { gsap } from 'gsap'
 
-const socialRow = document.querySelector(".social-row") as HTMLElement | null;
-const logo = document.getElementById("logo-link") as HTMLElement | null;
+const socialRow = document.querySelector('.social-row') as HTMLElement | null
+const logo = document.getElementById('logo-link') as HTMLElement | null
 	if (socialRow && logo) {
-		const rowHeight = socialRow.offsetHeight;
-		gsap.set(logo, { y: rowHeight > 0 ? -28 : 0, scale: rowHeight > 0 ? 1 : 0.55 });
-		let isScrolled = false;
+		const rowHeight = socialRow.offsetHeight
+		gsap.set(logo, { y: rowHeight > 0 ? -28 : 0, scale: rowHeight > 0 ? 1 : 0.55 })
+		let isScrolled = false
 
 	const update = () => {
-		const shouldBeScrolled = window.scrollY >= socialRow.offsetHeight;
+		const shouldBeScrolled = window.scrollY >= socialRow.offsetHeight
 		if (shouldBeScrolled !== isScrolled) {
-			isScrolled = shouldBeScrolled;
+			isScrolled = shouldBeScrolled
 
 			gsap.to(logo, {
 				y: isScrolled ? 0 : -28,
 				scale: isScrolled ? 0.55 : 1,
 				duration: 0.4,
-				ease: "back.out(1.7)",
-				overwrite: "auto",
-			});
+				ease: 'back.out(1.7)',
+				overwrite: 'auto',
+			})
 		}
-	};
+	}
 
-	update();
-	window.addEventListener("scroll", update, { passive: true });
-	window.addEventListener("resize", update, { passive: true });
+	update()
+	window.addEventListener('scroll', update, { passive: true })
+	window.addEventListener('resize', update, { passive: true })
 }
 </script>
