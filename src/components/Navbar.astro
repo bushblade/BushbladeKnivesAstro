@@ -52,7 +52,7 @@ const socialLinks = [
 		<div class="flex items-center gap-3">
 			{socialLinks.map(({ href, icon: Icon, hoverColor, ariaLabel }) => (
 				<a {href} target="_blank" rel="noopener noreferrer" class={`${hoverColor} transition-colors`} aria-label={ariaLabel}>
-					<Icon class="w-4 h-4" />
+					<Icon class="w-5 h-5" />
 				</a>
 			))}
 		</div>
@@ -61,7 +61,7 @@ const socialLinks = [
 
 <nav
 	id="main-nav"
-	class="bg-olive text-dark-gray sticky top-0 z-50 h-14"
+	class="bg-olive text-dark-gray sticky top-0 z-50 h-14 shadow-[0_4px_4px_rgba(0,0,0,0.3)]"
 >
 	<div
 		class="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
