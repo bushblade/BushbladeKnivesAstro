@@ -13,12 +13,12 @@ import Logo from "./Logo.astro";
 	<div
 		class="absolute inset-0 flex items-center justify-center pointer-events-none"
 	>
-		<a href="/" class="logo-link pointer-events-auto block w-72">
+		<a href="/" id="logo-link" class="pointer-events-auto block w-80">
 			<Logo class="w-full h-auto" />
 		</a>
 	</div>
 
-	<div class="social-row h-12 overflow-hidden">
+	<div class="social-row h-16 overflow-hidden">
 		<div class="flex items-center h-full px-4">
 			<div class="flex items-center gap-3">
 				<a
@@ -61,24 +61,22 @@ import Logo from "./Logo.astro";
 		</div>
 	</div>
 
-	<div class="h-12 overflow-hidden">
+	<div class="h-16 overflow-hidden">
 		<div
-			class="flex items-center justify-between h-full px-4 text-sm uppercase tracking-wider"
+			class="grid grid-cols-[1fr_320px_1fr] items-center h-full text-xl italic tracking-wider"
 		>
-			<div class="flex items-center gap-6">
-				<a href="/" class="hover:opacity-80 transition-colors">Home</a>
-				<a href="/about" class="hover:opacity-80 transition-colors">About</a>
-				<a href="/contact" class="hover:opacity-80 transition-colors">Contact</a>
-				<a href="/posts" class="hover:opacity-80 transition-colors">Posts</a>
+			<div class="flex items-center justify-center gap-6">
+				<a href="/">Home</a>
+				<a href="/about">About</a>
+				<a href="/contact">Contact</a>
+				<a href="/posts">Posts</a>
 			</div>
-			<div class="flex items-center gap-6">
-				<a
-					href="/knives/woodlore-clone"
-					class="hover:opacity-80 transition-colors"
-				>
+			<div></div>
+			<div class="flex items-center justify-center gap-6">
+				<a href="/knives/woodlore-clone">
 					Woodlore Clone
 				</a>
-				<a href="/knives/midi" class="hover:opacity-80 transition-colors">
+				<a href="/knives/midi">
 					Midi
 				</a>
 			</div>
@@ -88,11 +86,11 @@ import Logo from "./Logo.astro";
 
 <style>
 	nav {
-		height: 96px;
+		height: 128px;
 		transition: height 300ms;
 	}
 	nav.scrolled {
-		height: 48px;
+		height: 64px;
 	}
 	.social-row {
 		transition: height 300ms, opacity 300ms;
@@ -101,13 +99,21 @@ import Logo from "./Logo.astro";
 		height: 0;
 		opacity: 0;
 	}
+	nav a:not(#logo-link) {
+		filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
+		transition: filter 200ms ease, transform 200ms ease;
+	}
+	nav a:not(#logo-link):hover {
+		transform: scale(1.08);
+		filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+	}
 </style>
 
 <script>
 	import { gsap } from "gsap";
 
 	const nav = document.getElementById("main-nav");
-	const logo = document.querySelector(".logo-link");
+	const logo = document.getElementById("logo-link");
 	if (nav && logo) {
 		let isScrolled = false;
 
@@ -118,7 +124,7 @@ import Logo from "./Logo.astro";
 				nav.classList.toggle("scrolled", isScrolled);
 
 				gsap.to(logo, {
-					scale: isScrolled ? 0.55 : 1,
+					scale: isScrolled ? 0.6 : 1,
 					duration: 0.4,
 					ease: "back.out(1.7)",
 					overwrite: "auto",

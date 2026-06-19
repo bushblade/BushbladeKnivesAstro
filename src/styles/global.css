@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+	--font-sans: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
 	--color-off-white: #f1f1f1;
 	--color-olive: #c2c2a3;
 	--color-olive-light: #c2c2a4;
