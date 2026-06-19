@@ -4,6 +4,27 @@ import Instagram from "./icons/Instagram.astro";
 import Twitter from "./icons/Twitter.astro";
 import YouTube from "./icons/YouTube.astro";
 import Logo from "./Logo.astro";
+
+const currentPath = Astro.url.pathname;
+
+const leftLinks = [
+	{ href: "/", label: "Home" },
+	{ href: "/about", label: "About" },
+	{ href: "/contact", label: "Contact" },
+	{ href: "/posts", label: "Posts" },
+];
+
+const rightLinks = [
+	{ href: "/knives/woodlore-clone", label: "Woodlore Clone" },
+	{ href: "/knives/midi", label: "Midi" },
+];
+
+const socialLinks = [
+	{ href: "https://www.facebook.com/Bushbladehandmadeknives/", icon: Facebook, hoverColor: "hover:text-facebook", ariaLabel: "Facebook" },
+	{ href: "https://www.instagram.com/bushblade/", icon: Instagram, hoverColor: "hover:text-instagram", ariaLabel: "Instagram" },
+	{ href: "https://x.com/Bushblade", icon: Twitter, hoverColor: "hover:text-twitter", ariaLabel: "Twitter / X" },
+	{ href: "https://www.youtube.com/@bushbladehandmadeknives2528", icon: YouTube, hoverColor: "hover:text-youtube", ariaLabel: "YouTube" },
+];
 ---
 
 <nav
@@ -21,64 +42,33 @@ import Logo from "./Logo.astro";
 	<div class="social-row h-16 overflow-hidden">
 		<div class="flex items-center h-full px-4">
 			<div class="flex items-center gap-3">
-				<a
-					href="https://www.facebook.com/Bushbladehandmadeknives/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="hover:text-facebook transition-colors"
-					aria-label="Facebook"
-				>
-					<Facebook class="w-4 h-4" />
-				</a>
-				<a
-					href="https://www.instagram.com/bushblade/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="hover:text-instagram transition-colors"
-					aria-label="Instagram"
-				>
-					<Instagram class="w-4 h-4" />
-				</a>
-				<a
-					href="https://x.com/Bushblade"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="hover:text-twitter transition-colors"
-					aria-label="Twitter / X"
-				>
-					<Twitter class="w-4 h-4" />
-				</a>
-				<a
-					href="https://www.youtube.com/@bushbladehandmadeknives2528"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="hover:text-youtube transition-colors"
-					aria-label="YouTube"
-				>
-					<YouTube class="w-4 h-4" />
-				</a>
+				{socialLinks.map(({ href, icon: Icon, hoverColor, ariaLabel }) => (
+					<a {href} target="_blank" rel="noopener noreferrer" class={`${hoverColor} transition-colors`} aria-label={ariaLabel}>
+						<Icon class="w-4 h-4" />
+					</a>
+				))}
 			</div>
 		</div>
 	</div>
 
 	<div class="h-16 overflow-hidden">
 		<div
-			class="grid grid-cols-[1fr_320px_1fr] items-center h-full text-xl italic tracking-wider"
+			class="grid grid-cols-[1fr_320px_1fr] items-stretch h-full text-xl italic tracking-wider"
 		>
 			<div class="flex items-center justify-center gap-6">
-				<a href="/">Home</a>
-				<a href="/about">About</a>
-				<a href="/contact">Contact</a>
-				<a href="/posts">Posts</a>
+				{leftLinks.map(({ href, label }) => (
+					<span class="h-full flex items-center" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
+						<a href={href} class="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)] transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]">{label}</a>
+					</span>
+				))}
 			</div>
 			<div></div>
 			<div class="flex items-center justify-center gap-6">
-				<a href="/knives/woodlore-clone">
-					Woodlore Clone
-				</a>
-				<a href="/knives/midi">
-					Midi
-				</a>
+				{rightLinks.map(({ href, label }) => (
+					<span class="h-full flex items-center" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
+						<a href={href} class="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)] transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]">{label}</a>
+					</span>
+				))}
 			</div>
 		</div>
 	</div>
@@ -98,14 +88,6 @@ import Logo from "./Logo.astro";
 	nav.scrolled .social-row {
 		height: 0;
 		opacity: 0;
-	}
-	nav a:not(#logo-link) {
-		filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
-		transition: filter 200ms ease, transform 200ms ease;
-	}
-	nav a:not(#logo-link):hover {
-		transform: scale(1.08);
-		filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
 	}
 </style>
 
