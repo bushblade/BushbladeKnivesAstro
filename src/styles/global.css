@@ -7,6 +7,7 @@
 	--color-olive-light: #c2c2a4;
 	--color-dark-gray: #333333;
 	--color-medium-gray: #666666;
+	--color-olive-gray: #494b46;
 	--color-charcoal: #363636;
 	--color-gray-light: #dbdbdb;
 	--color-red-error: #a94442;
@@ -14,4 +15,8 @@
 	--color-instagram: #bc2a8d;
 	--color-twitter: #1dcaff;
 	--color-youtube: #ff0000;
+}
+
+@utility shadow-underline-olive {
+	box-shadow: inset 0 -2px 0 0 var(--color-olive);
 }
