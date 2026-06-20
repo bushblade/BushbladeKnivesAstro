@@ -1,10 +1,11 @@
 ---
+import flowerOfLife from '../images/floweroflife.svg'
 import '../styles/global.css'
 import Navbar from '../components/Navbar.astro'
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -19,7 +20,11 @@ import Navbar from '../components/Navbar.astro'
 		<meta name="generator" content={Astro.generator} />
 		<title>Bushblade Knives</title>
 	</head>
-	<body>
+	<body class="bg-off-white min-h-full">
+		<div
+			class="fixed inset-0 -z-10 pointer-events-none"
+			style={`background-image: url(${flowerOfLife.src}); background-size: cover; background-position: center; background-repeat: no-repeat;`}
+		></div>
 		<Navbar />
 		<slot />
 	</body>

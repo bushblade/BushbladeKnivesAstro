@@ -68,7 +68,7 @@ const socialLinks = [
 		>
 			<div class="flex items-center justify-center gap-6 max-lg:hidden">
 				{leftLinks.map(({ href, label }) => (
-					<span class="h-full flex items-start pt-1.5" class:list={{ 'border-b-4 border-charcoal': currentPath === href }}>
+					<span class="h-full flex items-start pt-1.5" class:list={{ 'border-b-4 border-medium-gray': currentPath === href }}>
 						<a href={href} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
 					</span>
 				))}
