@@ -1,8 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import BannerImage from '../components/BannerImage.astro'
+import bannerImg from '../images/banner02.jpg'
 ---
 
 <Layout>
+	<BannerImage image={bannerImg} alt="banner02" />
 	<h1 class="text-3xl font-bold underline">Bushblade Knives</h1>
   <div class="min-h-screen"></div>
 </Layout>
