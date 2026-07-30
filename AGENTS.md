@@ -42,6 +42,7 @@ Minimal [Astro](https://astro.build) v6.4.7 site (`astro/tsconfigs/strict`, Type
   ```astro
   {condition ? <Component /> : null}
   ```
+- **TypeScript in `<script>` tags**: Use `as` type assertions (e.g. `const el = document.querySelector(...) as HTMLElement | null`) for DOM queries to satisfy strict typing.
 
 ## Agent Skills
 
