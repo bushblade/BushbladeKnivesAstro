@@ -4,7 +4,7 @@
 
 Minimal [Astro](https://astro.build) v6.4.7 site (`astro/tsconfigs/strict`, TypeScript v6, pnpm v11).
 
-**Dev environment:** Tmux · Fish shell · Ghostty terminal · Neovim
+**Dev environment:** Herdr · Fish shell · Ghostty terminal · Neovim
 
 **Image assets** from the original Gatsby site are stored in `src/images/` (banners, knife photography, SVGs, etc.).
 
@@ -45,5 +45,6 @@ GSAP skills are available in `.agents/skills/` for authored guidance on animatio
 - **gsap-scrolltrigger** — scroll-linked animations, pinning, scrub, triggers
 - **gsap-performance** — optimising animations, avoiding layout thrashing, `will-change`
 - **gsap-utils** — `clamp`, `mapRange`, `normalize`, `random`, `snap`, `wrap`, `pipe`, `interpolate`
+- **herdr** — control terminal panes/tabs, view workspaces, run background commands, delegate to other agents. Requires `HERDR_ENV=1`.
 
 Load one with the `skill` tool when the task matches its description.
