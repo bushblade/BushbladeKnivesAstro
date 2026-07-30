@@ -1,10 +1,11 @@
 ---
 import BannerImage from '../components/BannerImage.astro'
+import PageTitle from '../components/PageTitle.astro'
 import bannerImg from '../images/knifemaking-banner.jpg'
 import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout>
 	<BannerImage image={bannerImg} alt="knifemaking-banner" />
-	<h1 class="text-3xl font-bold underline">About</h1>
+	<PageTitle pageTitle="A little about me" />
 </Layout>

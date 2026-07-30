@@ -1,0 +1,19 @@
+---
+interface Props {
+	pageTitle: string
+	tagline?: string
+}
+
+const { pageTitle, tagline } = Astro.props
+---
+
+<div class="text-center my-4 mb-20">
+	<h1 class="font-['Bilbo'] text-5xl inline-block border-b-[3px] border-olive px-8 leading-none">
+		{pageTitle}
+		{tagline && (
+			<span class="font-sans italic text-2xl bg-off-white px-1 relative" style="top: 0.25rem">
+				{tagline}
+			</span>
+		)}
+	</h1>
+</div>

@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 import BannerImage from '../components/BannerImage.astro'
 import InlineLink from '../components/InlineLink.astro'
+import PageTitle from '../components/PageTitle.astro'
 import bannerImg from '../images/banner02.jpg'
 import profileImg from '../images/me-allerthorpe.jpg'
 import Layout from '../layouts/Layout.astro'
@@ -11,12 +12,7 @@ import Layout from '../layouts/Layout.astro'
 	<BannerImage image={bannerImg} alt="Bushblade knives banner" />
 
 	<div class="max-w-7xl mx-auto px-4">
-		<div class="text-center my-4 mb-20">
-			<h1 class="font-['Bilbo'] text-5xl inline-block border-b-[3px] border-olive px-8 pb-1 leading-none">
-				Welcome to Bushblade
-				<span class="font-sans italic text-2xl bg-off-white px-1 block md:inline">handmade knives by Will Adams</span>
-			</h1>
-		</div>
+		<PageTitle pageTitle="Welcome to Bushblade" tagline="handmade knives by Will Adams" />
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
 			<div class="md:col-start-2 md:row-start-1">
