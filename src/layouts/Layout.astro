@@ -1,8 +1,8 @@
 ---
 import flowerOfLife from '../images/floweroflife.svg'
 import '../styles/global.css'
-import Navbar from '../components/Navbar.astro'
 import Footer from '../components/Footer.astro'
+import Navbar from '../components/Navbar.astro'
 ---
 
 <!doctype html>
@@ -14,14 +14,14 @@ import Footer from '../components/Footer.astro'
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400;1,600;1,700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400;1,600;1,700&family=Bilbo&display=swap"
 			rel="stylesheet"
 		/>
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Bushblade Knives</title>
 	</head>
-	<body class="bg-off-white min-h-full">
+	<body class="bg-off-white min-h-full text-lg">
 		<div
 			class="fixed inset-0 -z-10 pointer-events-none"
 			style={`background-image: url(${flowerOfLife.src}); background-size: cover; background-position: center; background-repeat: no-repeat;`}

@@ -1,11 +1,61 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import { Image } from 'astro:assets'
 import BannerImage from '../components/BannerImage.astro'
 import bannerImg from '../images/banner02.jpg'
+import profileImg from '../images/me-allerthorpe.jpg'
+import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout>
-	<BannerImage image={bannerImg} alt="banner02" />
-	<h1 class="text-3xl font-bold underline">Bushblade Knives</h1>
-  <div class="min-h-screen"></div>
+	<BannerImage image={bannerImg} alt="Bushblade knives banner" />
+
+	<div class="max-w-7xl mx-auto px-4">
+		<div class="text-center my-4 mb-20">
+			<h1 class="font-['Bilbo'] text-5xl inline-block border-b-[3px] border-olive px-8 pb-1 leading-none">
+				Welcome to Bushblade
+				<span class="font-sans italic text-2xl bg-off-white px-1 block md:inline">handmade knives by Will Adams</span>
+			</h1>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+			<div class="md:col-start-2 md:row-start-1">
+				<Image src={profileImg} alt="Will Adams" title="Will Adams" class="w-full" />
+			</div>
+			<div class="md:col-start-1 md:row-start-1">
+				<blockquote class="border-l-4 border-olive rounded p-4 bg-off-white italic shadow-sm">
+					&ldquo;Having used and acquired many knives over the years, from a
+					variety of brand name manufacturers and without sufficient funds to
+					purchase my ideal knife I decided to try and make my own.&rdquo;
+				</blockquote>
+				<br />
+				<p>
+					<strong>I made my first knives in 2001</strong> yielding functional
+					success in replicating the now famous Woodlore knives designed by Ray
+					Mears and at the time made by Alan Wood. I still own these knives but
+					the quality of my work has improved somewhat since the early days.
+				</p>
+				<p class="mt-4">
+					<strong>I am a firm believer in form following function.</strong> I aim
+					to make a functional tool that will be a pleasure to own and use for
+					many years. The overall fit, finish and quality of work are of the
+					utmost importance to me when making a knife. Each knife and sheath is
+					handmade by me here in the UK, I do not currently outsource any part of
+					the process.
+				</p>
+			</div>
+		</div>
+
+		<div class="text-center my-8">
+			<p>
+				I only spend a few days each week making knives as the majority of my
+				time is dedicated to my twin girls. Please take a look around, and feel
+				free to
+				<a href="/contact" class="transition-all hover:bg-olive shadow-underline-medium-gray text-olive-gray font-semibold">contact me</a>
+				with any comments or enquiries.
+			</p>
+			<h2 class="text-red-error text-2xl mt-8">
+				You must be over 18 years of age to order a knife.
+			</h2>
+		</div>
+	</div>
 </Layout>
