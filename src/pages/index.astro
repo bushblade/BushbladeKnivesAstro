@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import BannerImage from '../components/BannerImage.astro'
+import InlineLink from '../components/InlineLink.astro'
 import bannerImg from '../images/banner02.jpg'
 import profileImg from '../images/me-allerthorpe.jpg'
 import Layout from '../layouts/Layout.astro'
@@ -50,7 +51,7 @@ import Layout from '../layouts/Layout.astro'
 				I only spend a few days each week making knives as the majority of my
 				time is dedicated to my twin girls. Please take a look around, and feel
 				free to
-				<a href="/contact" class="transition-all hover:bg-olive shadow-underline-medium-gray text-olive-gray font-semibold">contact me</a>
+				<InlineLink href="/contact">contact me</InlineLink>
 				with any comments or enquiries.
 			</p>
 			<h2 class="text-red-error text-2xl mt-8">
