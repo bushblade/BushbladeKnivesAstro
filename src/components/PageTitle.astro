@@ -10,8 +10,8 @@ const { pageTitle, tagline } = Astro.props
 <div class="text-center my-4 mb-20">
 	<h1 class="font-['Bilbo'] text-5xl inline-block border-b-[3px] border-olive px-8 leading-[0.9]">
 		{pageTitle}
-		{tagline && (
+		{tagline ? (
 			<span class="font-sans italic text-[1.4rem] bg-off-white px-[0.2rem] inline-block translate-y-4">&nbsp;{tagline}</span>
-		)}
+		) : null}
 	</h1>
 </div>

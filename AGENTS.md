@@ -36,6 +36,13 @@ Minimal [Astro](https://astro.build) v6.4.7 site (`astro/tsconfigs/strict`, Type
 - **TypeScript in `<script>` tags**: Astro supports TypeScript in `<script>` blocks by default. Use `as` type assertions (e.g. `const el = document.querySelector(...) as HTMLElement | null`) for DOM queries to satisfy strict typing.
 - **GSAP** is installed for animations (logo scroll effect, mobile menu open/close with cascade). Animations use `back.out()` for playful bounce, `power2.out` for snappy exits, and `stagger` for sequenced child elements.
 
+## Code Style
+
+- **Conditional rendering**: Use ternary operators with `null` over logical AND (`&&`).
+  ```astro
+  {condition ? <Component /> : null}
+  ```
+
 ## Agent Skills
 
 GSAP skills are available in `.agents/skills/` for authored guidance on animations:
