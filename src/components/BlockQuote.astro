@@ -1,0 +1,9 @@
+---
+import Quote from './icons/Quote.astro'
+---
+
+<blockquote class="border-l-4 border-olive rounded p-4 bg-off-white italic shadow-sm">
+	<Quote class="inline w-4 h-4 text-olive mr-1 scale-x-[-1]" />
+	<slot />
+	<Quote class="inline w-4 h-4 text-olive ml-1" />
+</blockquote>

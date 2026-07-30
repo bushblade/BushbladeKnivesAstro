@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import BannerImage from '../components/BannerImage.astro'
+import BlockQuote from '../components/BlockQuote.astro'
 import InlineLink from '../components/InlineLink.astro'
 import PageTitle from '../components/PageTitle.astro'
 import bannerImg from '../images/banner02.jpg'
@@ -19,11 +20,11 @@ import Layout from '../layouts/Layout.astro'
 				<Image src={profileImg} alt="Will Adams" title="Will Adams" class="w-full" />
 			</div>
 			<div class="md:col-start-1 md:row-start-1">
-				<blockquote class="border-l-4 border-olive rounded p-4 bg-off-white italic shadow-sm">
-					&ldquo;Having used and acquired many knives over the years, from a
-					variety of brand name manufacturers and without sufficient funds to
-					purchase my ideal knife I decided to try and make my own.&rdquo;
-				</blockquote>
+				<BlockQuote>
+				Having used and acquired many knives over the years, from a
+				variety of brand name manufacturers and without sufficient funds to
+				purchase my ideal knife I decided to try and make my own.
+			</BlockQuote>
 				<br />
 				<p>
 					<strong>I made my first knives in 2001</strong> yielding functional
