@@ -25,11 +25,11 @@ const Gallery = ({ photos }: GalleryProps) => (
 		componentsProps={{
 			wrapper: {
 				className:
-					'shadow-gallery rounded-[2px] overflow-hidden cursor-zoom-in transition-shadow duration-200 ease-in-out group hover:shadow-gallery-hover',
+					'bg-charcoal shadow-gallery rounded-[2px] overflow-hidden cursor-zoom-in transition-shadow duration-200 ease-in-out group hover:shadow-gallery-hover',
 			},
 			image: {
 				className:
-					'transition-transform duration-[600ms] ease-[cubic-bezier(0.215,0.61,0.355,1)] will-change-transform group-hover:scale-105',
+					'transition-transform duration-[500ms] ease-[cubic-bezier(0.215,0.61,0.355,1)] group-hover:scale-105 scale-[1.006]',
 			},
 		}}
 	/>
