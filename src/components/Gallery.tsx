@@ -23,8 +23,14 @@ const Gallery = ({ photos }: GalleryProps) => (
 			return { minPhotos: columns, maxPhotos: columns }
 		}}
 		componentsProps={{
-			wrapper: { className: 'gallery__photo' },
-			image: { className: 'gallery__image' },
+			wrapper: {
+				className:
+					'shadow-gallery rounded-[2px] overflow-hidden cursor-zoom-in transition-shadow duration-200 ease-in-out group hover:shadow-gallery-hover',
+			},
+			image: {
+				className:
+					'transition-transform duration-[600ms] ease-[cubic-bezier(0.215,0.61,0.355,1)] will-change-transform group-hover:scale-105',
+			},
 		}}
 	/>
 )
