@@ -56,7 +56,15 @@ const galleryPhotos = await Promise.all(
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
 			<div class="md:col-start-2 md:row-start-1">
-				<Image src={profileImg} alt="Will Adams" title="Will Adams" class="w-full" />
+				<Image
+					src={profileImg}
+					alt="Will Adams"
+					title="Will Adams"
+					class="w-full"
+					width={800}
+					loading="eager"
+					format={import.meta.env.PROD ? 'avif' : undefined}
+				/>
 			</div>
 			<div class="md:col-start-1 md:row-start-1">
 				<BlockQuote>
