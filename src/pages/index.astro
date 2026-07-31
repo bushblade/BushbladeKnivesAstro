@@ -1,12 +1,51 @@
 ---
-import { Image } from 'astro:assets'
+import { getImage, Image } from 'astro:assets'
 import BannerImage from '../components/BannerImage.astro'
 import BlockQuote from '../components/BlockQuote.astro'
+import Gallery from '../components/Gallery'
 import InlineLink from '../components/InlineLink.astro'
 import PageTitle from '../components/PageTitle.astro'
 import bannerImg from '../images/banner02.jpg'
+import galleryImg01 from '../images/index-images/img01.jpg'
+import galleryImg02 from '../images/index-images/img02.jpg'
+import galleryImg03 from '../images/index-images/img03.jpg'
+import galleryImg04 from '../images/index-images/img04.jpg'
+import galleryImg05 from '../images/index-images/img05.jpg'
+import galleryImg06 from '../images/index-images/img06.jpg'
 import profileImg from '../images/me-allerthorpe.jpg'
 import Layout from '../layouts/Layout.astro'
+
+const gallerySources = [
+	{ name: 'img01', src: galleryImg01 },
+	{ name: 'img02', src: galleryImg02 },
+	{ name: 'img03', src: galleryImg03 },
+	{ name: 'img04', src: galleryImg04 },
+	{ name: 'img05', src: galleryImg05 },
+	{ name: 'img06', src: galleryImg06 },
+]
+
+const galleryPhotos = await Promise.all(
+	gallerySources.map(async (image) => {
+		const variants = await Promise.all(
+			[480, 800, 1200]
+				.map((width) => Math.min(width, image.src.width))
+				.filter((width, index, all) => all.indexOf(width) === index)
+				.map((width) => getImage({ src: image.src, width })),
+		)
+		return {
+			src: variants.at(-1)?.src ?? '',
+			width: image.src.width,
+			height: image.src.height,
+			alt: image.name,
+			key: image.name,
+			srcSet: variants.map(({ src, attributes }) => ({
+				src,
+				width: attributes.width,
+				height: attributes.height,
+			})),
+		}
+	}),
+)
 ---
 
 <Layout>
@@ -51,9 +90,12 @@ import Layout from '../layouts/Layout.astro'
 				<InlineLink href="/contact">contact me</InlineLink>
 				with any comments or enquiries.
 			</p>
-			<h2 class="text-red-error text-2xl mt-8">
-				You must be over 18 years of age to order a knife.
-			</h2>
-		</div>
+		<h2 class="text-red-error text-2xl mt-8">
+			You must be over 18 years of age to order a knife.
+		</h2>
+	</div>
+
+	<div class="my-16">
+		<Gallery client:load photos={galleryPhotos} />
 	</div>
 </Layout>
