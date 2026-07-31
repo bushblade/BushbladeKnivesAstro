@@ -1,43 +1,37 @@
-# Astro Starter Kit: Minimal
+# Bushblade Knives
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Static marketing site for [bushblade.co.uk](https://bushblade.co.uk) — custom handmade
+bushcraft knives by Will Adams. A rebuild of the original Gatsby site using Astro.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+- **Astro** v6 (static output) with strict TypeScript
+- **Tailwind CSS** v4 via `@tailwindcss/vite`
+- **React islands** — responsive gallery powered by `react-photo-album`
+- **GSAP** for scroll and menu animations
+- **`astro:assets` / Sharp** image optimization (avif in production)
+- **Biome** for formatting, linting, and import organization
+- **pnpm** as the package manager
 
-Inside of your Astro project, you'll see the following folders and files:
+## Pages
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Home, About, Contact, Posts, and Knives (Woodlore Clone, Midi).
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Command | Action |
+| :--- | :--- |
+| `pnpm install` | Install dependencies |
+| `pnpm dev` | Start local dev server at `localhost:4321` |
+| `pnpm build` | Build the production site to `./dist/` |
+| `pnpm preview` | Preview the production build locally |
+| `pnpm astro ...` | Run Astro CLI commands (`astro add`, etc.) |
+| `pnpm format` | Format code with Biome |
+| `pnpm lint` | Lint code with Biome |
+| `pnpm check` | Format + lint + organize imports (writes fixes) |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Dev notes
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Build scripts for `esbuild` and `sharp` need approval on a fresh clone:
+  `pnpm approve-builds esbuild sharp` (without this, `astro dev` fails silently).
+- The dev server has instant HMR — only run `pnpm build` for a production check.
