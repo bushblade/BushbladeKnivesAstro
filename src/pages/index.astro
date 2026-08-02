@@ -14,6 +14,7 @@ import galleryImg05 from '../images/index-images/img05.jpg'
 import galleryImg06 from '../images/index-images/img06.jpg'
 import profileImg from '../images/me-allerthorpe.jpg'
 import Layout from '../layouts/Layout.astro'
+import { imageFormat } from '../utils/image'
 
 const gallerySources = [
 	{ name: 'img01', src: galleryImg01 },
@@ -63,7 +64,7 @@ const galleryPhotos = await Promise.all(
 					class="w-full"
 					width={800}
 					loading="eager"
-					format={import.meta.env.PROD ? 'avif' : undefined}
+					format={imageFormat}
 				/>
 			</div>
 			<div class="md:col-start-1 md:row-start-1">

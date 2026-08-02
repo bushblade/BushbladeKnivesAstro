@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets'
+import { imageFormat } from '../utils/image'
 
 interface Props {
 	image: ImageMetadata
 	alt: string
 }
 
-const format = import.meta.env.PROD ? 'avif' : undefined
 const { image, alt } = Astro.props
 ---
 
@@ -17,7 +17,7 @@ const { image, alt } = Astro.props
 		class="w-full animate-fade-in"
 		layout="full-width"
 		loading="eager"
-		format={format}
+		format={imageFormat}
 	/>
 </div>
 
