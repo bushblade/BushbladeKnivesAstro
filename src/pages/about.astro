@@ -23,13 +23,13 @@ import { imageFormat } from '../utils/image'
 // { name: 'img07', alt: 'Will hammering a blade in the forge', src: meImg07 }.
 // `alt` is optional — omit it and the generic filename is used instead.
 const gallerySources = [
-	{ name: 'img07', src: meImg07 },
-	{ name: 'img06', src: meImg06 },
-	{ name: 'img05', src: meImg05 },
-	{ name: 'img04', src: meImg04 },
-	{ name: 'img03', src: meImg03 },
-	{ name: 'img02', src: meImg02 },
-	{ name: 'img01', src: meImg01 },
+	{ name: 'img07', src: meImg07, alt: 'Woodland pottery' },
+	{ name: 'img06', src: meImg06, alt: 'Carrying twins in slings' },
+	{ name: 'img05', src: meImg05, alt: 'At camp in the Bahamas' },
+	{ name: 'img04', src: meImg04, alt: 'Climbing at Stanage' },
+	{ name: 'img03', src: meImg03, alt: 'Under a tarp with my girls' },
+	{ name: 'img02', src: meImg02, alt: 'Deep water soloing - Bahamas' },
+	{ name: 'img01', src: meImg01, alt: 'Collecting water in a cave' },
 ]
 
 const galleryPhotos = await buildGalleryPhotos(gallerySources)
