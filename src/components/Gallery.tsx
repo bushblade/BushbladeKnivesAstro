@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { type Photo, RowsPhotoAlbum } from 'react-photo-album'
 import Slider from 'react-touch-drag-slider'
@@ -30,6 +30,9 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 	const [current, setCurrent] = useState(0)
 	const [isMobile, setIsMobile] = useState(false)
 	const [breakpoints, setBreakpoints] = useState({ narrow: false, tablet: false })
+	const dialogRef = useRef<HTMLDivElement | null>(null)
+	const closeButtonRef = useRef<HTMLButtonElement | null>(null)
+	const lastFocusedRef = useRef<HTMLElement | null>(null)
 
 	useEffect(() => {
 		const media = window.matchMedia('(max-width: 779px)')
@@ -58,14 +61,55 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 
 	useEffect(() => {
 		const html = document.querySelector('html') as HTMLElement | null
+		const previousOverflow = html?.style.overflowY ?? null
 		if (html) html.style.overflowY = open ? 'hidden' : 'visible'
 
+		if (open) {
+			lastFocusedRef.current = document.activeElement as HTMLElement | null
+			closeButtonRef.current?.focus()
+		} else {
+			lastFocusedRef.current?.focus()
+			lastFocusedRef.current = null
+		}
+
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === 'Escape') setOpen(false)
+			if (event.key === 'Escape') {
+				setOpen(false)
+				return
+			}
+			if (event.key === 'ArrowLeft') {
+				setCurrent((index) => Math.max(0, index - 1))
+				return
+			}
+			if (event.key === 'ArrowRight') {
+				setCurrent((index) => Math.min(photos.length - 1, index + 1))
+				return
+			}
+			if (event.key === 'Tab') {
+				const dialog = dialogRef.current
+				if (!dialog) return
+				const focusable = dialog.querySelectorAll<HTMLElement>(
+					'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+				)
+				const list = Array.from(focusable).filter((element) => !element.hasAttribute('disabled'))
+				if (list.length === 0) return
+				const first = list[0]
+				const last = list[list.length - 1]
+				if (event.shiftKey && document.activeElement === first) {
+					last.focus()
+					event.preventDefault()
+				} else if (!event.shiftKey && document.activeElement === last) {
+					first.focus()
+					event.preventDefault()
+				}
+			}
 		}
 		if (open) window.addEventListener('keydown', handleKeyDown)
-		return () => window.removeEventListener('keydown', handleKeyDown)
-	}, [open])
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown)
+			if (html && previousOverflow !== null) html.style.overflowY = previousOverflow
+		}
+	}, [open, photos.length])
 
 	return (
 		<>
@@ -101,9 +145,16 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 			/>
 			{open
 				? createPortal(
-						<div className="animate-modal-in fixed inset-0 z-100 flex items-center justify-center bg-black/80">
+						<div
+							ref={dialogRef}
+							role="dialog"
+							aria-modal="true"
+							aria-label="Image gallery"
+							className="animate-modal-in fixed inset-0 z-100 flex items-center justify-center bg-black/80"
+						>
 							<button
 								type="button"
+								ref={closeButtonRef}
 								aria-label="Close gallery"
 								onClick={() => setOpen(false)}
 								className="fixed right-4 top-[0.4rem] z-102 block h-8 w-8 cursor-pointer"
@@ -111,6 +162,9 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 								<span className="absolute top-1/2 block h-[0.2rem] w-full -translate-y-1/2 rotate-45 rounded-[3px] bg-[whitesmoke]" />
 								<span className="absolute top-1/2 block h-[0.2rem] w-full -translate-y-1/2 -rotate-45 rounded-[3px] bg-[whitesmoke]" />
 							</button>
+							<div aria-live="polite" className="sr-only">
+								Image {current + 1} of {photos.length}
+							</div>
 							{current !== 0 && !isMobile ? (
 								<button
 									type="button"
@@ -132,13 +186,14 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 								</button>
 							) : null}
 							<Slider activeIndex={current} onSlideComplete={setCurrent} scaleOnDrag>
-								{photos.map((photo) => (
+								{photos.map((photo, index) => (
 									<img
 										key={photo.key}
 										src={photo.src}
 										srcSet={srcSetOf(photo)}
 										sizes="(max-width: 1200px) 100vw, 1200px"
 										alt={photo.alt ?? 'knife'}
+										aria-hidden={index !== current}
 										className="max-w-300 select-none object-contain"
 										onMouseDown={(event) => event.preventDefault()}
 										onDragStart={(event) => event.preventDefault()}
