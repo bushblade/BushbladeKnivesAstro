@@ -77,14 +77,6 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 				setOpen(false)
 				return
 			}
-			if (event.key === 'ArrowLeft') {
-				setCurrent((index) => Math.max(0, index - 1))
-				return
-			}
-			if (event.key === 'ArrowRight') {
-				setCurrent((index) => Math.min(photos.length - 1, index + 1))
-				return
-			}
 			if (event.key === 'Tab') {
 				const dialog = dialogRef.current
 				if (!dialog) return
@@ -109,7 +101,7 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 			window.removeEventListener('keydown', handleKeyDown)
 			if (html && previousOverflow !== null) html.style.overflowY = previousOverflow
 		}
-	}, [open, photos.length])
+	}, [open])
 
 	return (
 		<>
@@ -187,6 +179,8 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 							) : null}
 							<Slider activeIndex={current} onSlideComplete={setCurrent} scaleOnDrag>
 								{photos.map((photo, index) => (
+									// Cap at native resolution — the slider stretches slides to
+									// viewport size and would otherwise upscale small sources.
 									<img
 										key={photo.key}
 										src={photo.src}
@@ -194,7 +188,8 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 										sizes="(max-width: 1200px) 100vw, 1200px"
 										alt={photo.alt ?? 'knife'}
 										aria-hidden={index !== current}
-										className="max-w-300 select-none object-contain"
+										style={{ maxWidth: photo.width, maxHeight: photo.height }}
+										className="select-none object-contain"
 										onMouseDown={(event) => event.preventDefault()}
 										onDragStart={(event) => event.preventDefault()}
 									/>
