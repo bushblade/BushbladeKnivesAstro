@@ -122,7 +122,16 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 				<strong>I only spend a few days each week making knives </strong>as
 				the majority of my time these days is dedicated to my twin girls. I am
 				a keen climber and can be often found training at{' '}
-				<InlineLink href="http://www.rokt.co.uk/" target="_blank">Rokt</InlineLink>,
+				<InlineLink href="http://www.rokt.co.uk/" target="_blank">
+					<span class="line-through">Rokt</span>
+				</InlineLink>{' '}
+				<InlineLink
+					href="https://www.freeklime.co.uk/huddersfield"
+					target="_blank"
+					class="ml-1"
+				>
+					Freeklime
+				</InlineLink>,
 				my local climbing gym.
 			</p>
 			<p class="mt-4">
@@ -132,11 +141,13 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 				<InlineLink href="https://github.com/bushblade" target="_blank">
 					here.
 				</InlineLink>{' '}
-				For those geeky enough to want to know - this site is built with
-				GatsbyJS, ReactJS and styled-components mainly using{' '}
-				<span class="line-through">VS Code</span> Neovim on a desktop
-				installation of Manjaro Linux with continuous deployment to Netlify
-				through GitHub.
+				For those geeky enough to want to know - this site is built with{' '}
+				<span class="line-through">GatsbyJS</span> Astro, ReactJS and{' '}
+				<span class="line-through">styled-components</span> Tailwind mainly
+				using <span class="line-through">VS Code</span> Neovim on a desktop
+				installation of{' '}
+				<span class="line-through">Manjaro Linux</span> Cachy OS with
+				continuous deployment to Netlify through GitHub.
 			</p>
 		</div>
 
