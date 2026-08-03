@@ -17,6 +17,9 @@ import Layout from '../layouts/Layout.astro'
 import { buildGalleryPhotos } from '../utils/gallery'
 import { imageFormat } from '../utils/image'
 
+// Gallery alt text: add a short description per photo for screen readers, e.g.
+// { name: 'img01', alt: 'Finished Woodlore-style knife with curly birch handle', src: galleryImg01 }.
+// `alt` is optional — omit it and the generic filename is used instead.
 const gallerySources = [
 	{ name: 'img01', src: galleryImg01 },
 	{ name: 'img02', src: galleryImg02 },

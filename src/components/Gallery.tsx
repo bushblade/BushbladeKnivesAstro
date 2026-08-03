@@ -33,6 +33,7 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 	const dialogRef = useRef<HTMLDivElement | null>(null)
 	const closeButtonRef = useRef<HTMLButtonElement | null>(null)
 	const lastFocusedRef = useRef<HTMLElement | null>(null)
+	const containerRef = useRef<HTMLDivElement | null>(null)
 
 	useEffect(() => {
 		const media = window.matchMedia('(max-width: 779px)')
@@ -40,6 +41,24 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 		const update = () => setIsMobile(media.matches)
 		media.addEventListener('change', update)
 		return () => media.removeEventListener('change', update)
+	}, [])
+
+	useEffect(() => {
+		// Grid thumbs start invisible (opacity-0 text-transparent) so their generic
+		// alt text doesn't flash; reveal each as it loads, instantly if already cached.
+		const container = containerRef.current
+		if (!container) return
+		const reveal = (image: HTMLImageElement) => {
+			image.classList.remove('opacity-0', 'text-transparent')
+			image.style.opacity = '1'
+		}
+		container.querySelectorAll('img').forEach((image) => {
+			if (image.complete) {
+				reveal(image)
+			} else {
+				image.addEventListener('load', () => reveal(image), { once: true })
+			}
+		})
 	}, [])
 
 	useEffect(() => {
@@ -105,36 +124,38 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 
 	return (
 		<>
-			<RowsPhotoAlbum
-				photos={photos}
-				targetRowHeight={250}
-				spacing={5}
-				padding={0}
-				defaultContainerWidth={1248}
-				rowConstraints={(containerWidth) => {
-					if (rowPolicy === 'natural') {
-						if (breakpoints.narrow) return { maxPhotos: 1 }
-						if (breakpoints.tablet) return { maxPhotos: 2 }
-						return {}
-					}
-					const count = photosPerRow(containerWidth)
-					return { minPhotos: count, maxPhotos: count }
-				}}
-				onClick={({ index }) => {
-					setCurrent(index)
-					setOpen(true)
-				}}
-				componentsProps={{
-					button: {
-						className:
-							'bg-charcoal shadow-gallery rounded-[2px] overflow-hidden cursor-zoom-in group',
-					},
-					image: {
-						className:
-							'will-change-transform transition-transform duration-300 ease-out group-hover:scale-105 scale-[1.006]',
-					},
-				}}
-			/>
+			<div ref={containerRef}>
+				<RowsPhotoAlbum
+					photos={photos}
+					targetRowHeight={250}
+					spacing={5}
+					padding={0}
+					defaultContainerWidth={1248}
+					rowConstraints={(containerWidth) => {
+						if (rowPolicy === 'natural') {
+							if (breakpoints.narrow) return { maxPhotos: 1 }
+							if (breakpoints.tablet) return { maxPhotos: 2 }
+							return {}
+						}
+						const count = photosPerRow(containerWidth)
+						return { minPhotos: count, maxPhotos: count }
+					}}
+					onClick={({ index }) => {
+						setCurrent(index)
+						setOpen(true)
+					}}
+					componentsProps={{
+						button: {
+							className:
+								'bg-charcoal shadow-gallery rounded-[2px] overflow-hidden cursor-zoom-in group',
+						},
+						image: {
+							className:
+								'will-change-transform transition-[transform,opacity] duration-300 ease-out group-hover:scale-105 scale-[1.006] opacity-0 text-transparent',
+						},
+					}}
+				/>
+			</div>
 			{open
 				? createPortal(
 						<div

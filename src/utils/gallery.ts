@@ -3,7 +3,7 @@ import type { ImageMetadata } from 'astro'
 import type { Photo } from 'react-photo-album'
 
 export const buildGalleryPhotos = async (
-	sources: readonly { name: string; src: ImageMetadata }[],
+	sources: readonly { name: string; alt?: string; src: ImageMetadata }[],
 ): Promise<Photo[]> =>
 	Promise.all(
 		sources.map(async (image) => {
@@ -17,7 +17,7 @@ export const buildGalleryPhotos = async (
 				src: variants.at(-1)?.src ?? '',
 				width: image.src.width,
 				height: image.src.height,
-				alt: image.name,
+				alt: image.alt ?? image.name,
 				key: image.name,
 				srcSet: variants.map(({ src, attributes }) => ({
 					src,
