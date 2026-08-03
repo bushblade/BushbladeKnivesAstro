@@ -151,7 +151,7 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 						},
 						image: {
 							className:
-								'will-change-transform transition-[transform,opacity] duration-300 ease-out group-hover:scale-105 scale-[1.006] opacity-0 text-transparent',
+								'will-change-transform transition-[transform,scale,opacity] duration-300 ease-out group-hover:scale-105 scale-[1.006] opacity-0 text-transparent',
 						},
 					}}
 				/>
