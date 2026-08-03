@@ -89,13 +89,13 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 					setOpen(true)
 				}}
 				componentsProps={{
-					wrapper: {
+					button: {
 						className:
-							'bg-charcoal shadow-gallery rounded-[2px] overflow-hidden cursor-zoom-in transition-shadow duration-200 ease-in-out group hover:shadow-gallery-hover',
+							'bg-charcoal shadow-gallery rounded-[2px] overflow-hidden cursor-zoom-in group',
 					},
 					image: {
 						className:
-							'transition-transform duration-[500ms] ease-[cubic-bezier(0.215,0.61,0.355,1)] group-hover:scale-105 scale-[1.006]',
+							'will-change-transform transition-transform duration-300 ease-out group-hover:scale-105 scale-[1.006]',
 					},
 				}}
 			/>
