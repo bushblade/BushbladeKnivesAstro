@@ -8,6 +8,7 @@ import 'react-photo-album/rows.css'
 
 interface GalleryProps {
 	photos: readonly Photo[]
+	rowPolicy?: 'default' | 'natural'
 }
 
 const photosPerRow = (containerWidth: number) => {
@@ -19,10 +20,16 @@ const photosPerRow = (containerWidth: number) => {
 const srcSetOf = (photo: Photo) =>
 	photo.srcSet?.map(({ src, width }) => `${src} ${width}w`).join(', ') ?? photo.src
 
-function Gallery({ photos }: GalleryProps) {
+const naturalBreakpoints = () => ({
+	narrow: window.matchMedia('(max-width: 699px)').matches,
+	tablet: window.matchMedia('(min-width: 700px) and (max-width: 999px)').matches,
+})
+
+function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 	const [open, setOpen] = useState(false)
 	const [current, setCurrent] = useState(0)
 	const [isMobile, setIsMobile] = useState(false)
+	const [breakpoints, setBreakpoints] = useState({ narrow: false, tablet: false })
 
 	useEffect(() => {
 		const media = window.matchMedia('(max-width: 779px)')
@@ -31,6 +38,23 @@ function Gallery({ photos }: GalleryProps) {
 		media.addEventListener('change', update)
 		return () => media.removeEventListener('change', update)
 	}, [])
+
+	useEffect(() => {
+		if (rowPolicy !== 'natural') return
+		const media = [
+			window.matchMedia('(max-width: 699px)'),
+			window.matchMedia('(min-width: 700px) and (max-width: 999px)'),
+		]
+		const update = () => setBreakpoints(naturalBreakpoints())
+		update()
+		media.forEach((query) => {
+			query.addEventListener('change', update)
+		})
+		return () =>
+			media.forEach((query) => {
+				query.removeEventListener('change', update)
+			})
+	}, [rowPolicy])
 
 	useEffect(() => {
 		const html = document.querySelector('html') as HTMLElement | null
@@ -52,8 +76,13 @@ function Gallery({ photos }: GalleryProps) {
 				padding={0}
 				defaultContainerWidth={1248}
 				rowConstraints={(containerWidth) => {
-					const columns = photosPerRow(containerWidth)
-					return { minPhotos: columns, maxPhotos: columns }
+					if (rowPolicy === 'natural') {
+						if (breakpoints.narrow) return { maxPhotos: 1 }
+						if (breakpoints.tablet) return { maxPhotos: 2 }
+						return {}
+					}
+					const count = photosPerRow(containerWidth)
+					return { minPhotos: count, maxPhotos: count }
 				}}
 				onClick={({ index }) => {
 					setCurrent(index)

@@ -1,11 +1,147 @@
 ---
+import { Image } from 'astro:assets'
 import BannerImage from '../components/BannerImage.astro'
+import BlockQuote from '../components/BlockQuote.astro'
+import Gallery from '../components/Gallery'
+import InlineLink from '../components/InlineLink.astro'
 import PageTitle from '../components/PageTitle.astro'
 import bannerImg from '../images/knifemaking-banner.jpg'
+import meImg01 from '../images/me/img01.jpg'
+import meImg02 from '../images/me/img02.jpg'
+import meImg03 from '../images/me/img03.jpg'
+import meImg04 from '../images/me/img04.jpg'
+import meImg05 from '../images/me/img05.jpg'
+import meImg06 from '../images/me/img06.jpg'
+import meImg07 from '../images/me/img07.jpg'
+import meintreeImg from '../images/meintree.jpg'
+import woodsmokeImg from '../images/woodsmoke2003.jpg'
 import Layout from '../layouts/Layout.astro'
+import { buildGalleryPhotos } from '../utils/gallery'
+import { imageFormat } from '../utils/image'
+
+const gallerySources = [
+	{ name: 'img07', src: meImg07 },
+	{ name: 'img06', src: meImg06 },
+	{ name: 'img05', src: meImg05 },
+	{ name: 'img04', src: meImg04 },
+	{ name: 'img03', src: meImg03 },
+	{ name: 'img02', src: meImg02 },
+	{ name: 'img01', src: meImg01 },
+]
+
+const galleryPhotos = await buildGalleryPhotos(gallerySources)
 ---
 
 <Layout>
-	<BannerImage image={bannerImg} alt="knifemaking-banner" />
-	<PageTitle pageTitle="A little about me" />
+	<BannerImage image={bannerImg} alt="knifemaking banner" />
+	<PageTitle
+		pageTitle="A little about me"
+		tagline="bushcrafter, climber, developer, dad..."
+	/>
+
+	<div class="max-w-7xl mx-auto px-4">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+			<div class="md:col-start-1 md:row-start-1">
+				<BlockQuote>
+					I have always had a passion for wild places and spending time in
+					them. Bushcraft for me is a way of being comfortable and feeling at
+					home in wild places.
+				</BlockQuote>
+				<br />
+				<p>
+					As a child the subject for me and my friends came under the heading
+					of 'survival' and books by the likes of <em>Lofty Wiseman</em> and{' '}
+					<em>Eddie McGee</em> were high on my Christmas list.
+				</p>
+				<p class="mt-4">
+					However, survival implied a sense of 'how to get out of this alive',
+					whereas I was in search of 'how can I stay here longer?' When{' '}
+					<em>Ray Mears</em> appeared on TV in the early 90's and brought the
+					term bushcraft to my attention, that became my subject of study.
+				</p>
+			</div>
+			<div class="md:col-start-2 md:row-start-1">
+				<Image
+					src={meintreeImg}
+					alt="Will Adams"
+					title="Yep that's me"
+					class="w-full"
+					width={800}
+					loading="eager"
+					format={imageFormat}
+				/>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+			<div class="md:col-start-1 md:row-start-1">
+				<Image
+					src={woodsmokeImg}
+					alt="Woodsmoke 2003"
+					title="June 2003"
+					class="w-full"
+					width={800}
+					format={imageFormat}
+				/>
+				<h4 class="text-center italic my-2">Woodsmoke - June 2003</h4>
+			</div>
+			<div class="md:col-start-2 md:row-start-1">
+				<p>
+					In 2003 I attended a week long bushcraft course called the
+					Woodlander which was run by{' '}
+					<InlineLink href="http://www.woodsmoke.uk.com/" target="_blank">
+						Woodsmoke
+					</InlineLink>{' '}
+					in the Lake District, the course was excellent and I'm happy to say
+					I received a distinction.
+				</p>
+				<p class="mt-4">
+					My learning accelerated from attending the course and later that
+					year took a place on their Abo' course. Over the next few years I
+					consolidated my learning with time spent in remote areas of England
+					and Scotland as well as The Bahamas practicing the skills I had
+					learned.
+				</p>
+				<p class="mt-4">
+					In 2007 and 2008 I assisted the{' '}
+					<InlineLink href="http://www.woodsmoke.uk.com/" target="_blank">
+						Woodsmoke
+					</InlineLink>{' '}
+					team on many of their courses, further learning from a different
+					perspective. I have also worked with other UK bushcraft schools
+					including Bushtruck and{' '}
+					<InlineLink href="https://www.dryadbushcraft.co.uk/" target="_blank">
+						Dryad Bushcraft.
+					</InlineLink>
+				</p>
+			</div>
+		</div>
+
+		<div class="max-w-240 mx-auto my-8">
+			<p>
+				<strong>I only spend a few days each week making knives </strong>as
+				the majority of my time these days is dedicated to my twin girls. I am
+				a keen climber and can be often found training at{' '}
+				<InlineLink href="http://www.rokt.co.uk/" target="_blank">Rokt</InlineLink>,
+				my local climbing gym.
+			</p>
+			<p class="mt-4">
+				I also have a passion for web development which originally came from a
+				need to build a website for Bushblade Knives, which you can learn more
+				about{' '}
+				<InlineLink href="https://github.com/bushblade" target="_blank">
+					here.
+				</InlineLink>{' '}
+				For those geeky enough to want to know - this site is built with
+				GatsbyJS, ReactJS and styled-components mainly using{' '}
+				<span class="line-through">VS Code</span> Neovim on a desktop
+				installation of Manjaro Linux with continuous deployment to Netlify
+				through GitHub.
+			</p>
+		</div>
+
+		<div class="my-16">
+			<Gallery client:load photos={galleryPhotos} rowPolicy="natural" />
+		</div>
+	</div>
 </Layout>
