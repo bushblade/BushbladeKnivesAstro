@@ -33,7 +33,6 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 	const dialogRef = useRef<HTMLDivElement | null>(null)
 	const closeButtonRef = useRef<HTMLButtonElement | null>(null)
 	const lastFocusedRef = useRef<HTMLElement | null>(null)
-	const containerRef = useRef<HTMLDivElement | null>(null)
 
 	useEffect(() => {
 		const media = window.matchMedia('(max-width: 779px)')
@@ -41,24 +40,6 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 		const update = () => setIsMobile(media.matches)
 		media.addEventListener('change', update)
 		return () => media.removeEventListener('change', update)
-	}, [])
-
-	useEffect(() => {
-		// Grid thumbs start invisible (opacity-0 text-transparent) so their generic
-		// alt text doesn't flash; reveal each as it loads, instantly if already cached.
-		const container = containerRef.current
-		if (!container) return
-		const reveal = (image: HTMLImageElement) => {
-			image.classList.remove('opacity-0', 'text-transparent')
-			image.style.opacity = '1'
-		}
-		container.querySelectorAll('img').forEach((image) => {
-			if (image.complete) {
-				reveal(image)
-			} else {
-				image.addEventListener('load', () => reveal(image), { once: true })
-			}
-		})
 	}, [])
 
 	useEffect(() => {
@@ -124,7 +105,7 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 
 	return (
 		<>
-			<div ref={containerRef}>
+			<div>
 				<RowsPhotoAlbum
 					photos={photos}
 					targetRowHeight={250}
@@ -151,7 +132,7 @@ function Gallery({ photos, rowPolicy = 'default' }: GalleryProps) {
 						},
 						image: {
 							className:
-								'will-change-transform transition-[transform,scale,opacity] duration-300 ease-out group-hover:scale-105 scale-[1.006] opacity-0 text-transparent',
+								'will-change-transform transition-[transform,scale] duration-300 ease-out group-hover:scale-105 scale-[1.006] text-transparent',
 						},
 					}}
 				/>
