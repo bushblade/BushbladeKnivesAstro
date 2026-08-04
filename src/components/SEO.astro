@@ -1,0 +1,31 @@
+---
+import { formatTitle, SITE } from '../data/site'
+
+interface Props {
+	title?: string
+	description?: string
+	keywords?: string[]
+	image?: string
+}
+
+const { title, keywords } = Astro.props
+const description = Astro.props.description ?? SITE.description
+const image = Astro.props.image ?? `${SITE.url}/og-image.jpg`
+const pageTitle = title ?? SITE.title
+const canonical = new URL(Astro.url.pathname, SITE.url).href
+---
+
+<title>{formatTitle(pageTitle)}</title>
+<meta name="description" content={description} />
+{keywords?.length ? <meta name="keywords" content={keywords.join(', ')} /> : null}
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={image} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content={SITE.twitterHandle} />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<link rel="canonical" href={canonical} />

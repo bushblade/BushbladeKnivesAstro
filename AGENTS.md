@@ -10,11 +10,16 @@ Minimal [Astro](https://astro.build) v6.4.7 site (`astro/tsconfigs/strict`, Type
 
 ## Todo
 
-- [ ] Rebuild existing pages (Home, About, Contact, Posts)
+- [x] Rebuild Home page (with SEO)
+- [x] Rebuild About page (with SEO)
+- [ ] Rebuild Contact page — currently a stub (`<Layout title="Contact Me" />` only); add content + full SEO (keywords)
+- [ ] Rebuild Posts page — currently a stub (`<Layout title="Posts" />` only); add content + full SEO
+- [ ] Rebuild knife product pages — `/woodlore-clone` and `/midi` — currently stubs (title only); add content + full SEO (keywords)
 - [ ] Set up content collections (blog posts, knife data via Markdown/MDX)
 - [ ] Theme and styling — pull colours, fonts, design from original site into Tailwind
 - [ ] Image handling — set up image assets/optimisation (knife photography)
-- [ ] Knife product pages (Woodlore Clone, Midi)
+
+SEO is done via `Layout.astro` props forwarded to `src/components/SEO.astro` (title template `%s | Bushblade Knives`, description, keywords, OG/Twitter tags, canonical). Add `keywords`/`description` to a page's `<Layout>` when it's fully built out.
 
 ## Commands
 

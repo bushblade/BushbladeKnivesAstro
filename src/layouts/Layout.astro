@@ -3,6 +3,17 @@ import flowerOfLife from '../images/floweroflife.svg'
 import '../styles/global.css'
 import Footer from '../components/Footer.astro'
 import Navbar from '../components/Navbar.astro'
+import SEO from '../components/SEO.astro'
+import { SITE } from '../data/site'
+
+interface Props {
+	title?: string
+	description?: string
+	keywords?: string[]
+	image?: string
+}
+
+const { title, description, keywords, image } = Astro.props
 ---
 
 <!doctype html>
@@ -19,7 +30,8 @@ import Navbar from '../components/Navbar.astro'
 		/>
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Bushblade Knives</title>
+		<meta name="theme-color" content={SITE.themeColor} />
+		<SEO title={title} description={description} keywords={keywords} image={image} />
 	</head>
 	<body class="bg-off-white min-h-full text-lg">
 		<div
