@@ -91,7 +91,7 @@ function Gallery({ photos }: GalleryProps) {
 						},
 						image: {
 							className:
-								'will-change-transform transition-[transform,scale] duration-300 ease-out group-hover:scale-105 scale-[1.006] text-transparent',
+								'will-change-transform transition-[transform,scale] duration-300 ease-out group-hover:scale-105 scale-[1.006] text-transparent animate-fade-in',
 						},
 					}}
 				/>
