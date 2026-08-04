@@ -1,0 +1,13 @@
+---
+import InlineLink from '../components/InlineLink.astro'
+import PageTitle from '../components/PageTitle.astro'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="404">
+	<PageTitle pageTitle="404" tagline="not found" />
+
+	<div class="max-w-7xl mx-auto px-4 text-center my-16">
+		<p>That page doesn't exist. Head back to the <InlineLink href="/">homepage</InlineLink>.</p>
+	</div>
+</Layout>
