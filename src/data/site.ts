@@ -5,6 +5,10 @@ export const SITE = {
 	twitterHandle: 'bushblade',
 	themeColor: '#c2c2a3',
 	url: 'https://bushblade.co.uk',
+	prices: {
+		midi: '255',
+		woodloreClone: '320',
+	},
 }
 
 export function formatTitle(title?: string): string {

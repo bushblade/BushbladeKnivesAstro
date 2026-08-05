@@ -1,11 +1,53 @@
 ---
+import ContactForm from '../components/ContactForm'
 import FadeImage from '../components/FadeImage.astro'
+import InlineLink from '../components/InlineLink.astro'
 import PageTitle from '../components/PageTitle.astro'
+import { SITE } from '../data/site'
 import bannerImg from '../images/contact-banner.jpg'
 import Layout from '../layouts/Layout.astro'
 ---
 
-<Layout title="Contact Me">
-	<FadeImage src={bannerImg} alt="contact-banner" class="w-full" layout="full-width" loading="eager" />
-	<PageTitle pageTitle="Contact Me" />
+<Layout
+	title="Contact Me"
+	description="Get in touch with Bushblade Knives — use the contact form or email bushblade@gmail.com. Knife prices and current availability."
+	keywords={['contact', 'email', 'social media', 'phone']}
+>
+	<FadeImage src={bannerImg} alt="contact banner" class="w-full" layout="full-width" loading="eager" />
+	<PageTitle pageTitle="Contact Me" tagline="bushblade@gmail.com" />
+
+	<div class="max-w-7xl mx-auto px-4 my-8">
+		<div class="max-w-[960px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-y-8 md:gap-8">
+			<div class="order-2 md:order-1">
+				<ContactForm client:load />
+			</div>
+
+			<div class="order-1 md:order-2">
+				<h2 class="text-2xl">A few things I get asked often...</h2>
+				<hr class="border-0 h-px bg-black/20 my-4" />
+				<h3 class="text-xl mt-4">How much does a knife cost?</h3>
+				<p class="mt-4">
+					Each knife is custom made and as such price can vary depending on materials, sheath
+					options and etching etc. As a rough guide a Midi in 3mm stock starts at
+					£{SITE.prices.midi} and a Woodlore Clone in 4mm stock with a tapered tang starts at
+					£{SITE.prices.woodloreClone}.
+				</p>
+				<h3 class="text-xl mt-4">Can you make a knife to my design?</h3>
+				<p class="mt-4">At the moment I do not take on commissioned designs.</p>
+				<h3 class="text-xl mt-4">What's your waiting list like?</h3>
+				<p class="mt-4">
+					I have moved away from commissioned work for the foreseeable future. Any knives I have
+					available will be listed on the{' '}
+					<InlineLink href="https://www.facebook.com/Bushbladehandmadeknives/" target="_blank">
+						Facebook page.
+					</InlineLink>{' '}
+					Please follow me on social media for latest availability.
+				</p>
+			{/* <h3>Who built your website?</h3> */}
+			{/* <p>
+				I built the site myself. I am not a developer by profession but if you have a project
+				you think I would be intersted in then please get in touch.
+			</p> */}
+		</div>
+	</div>
 </Layout>
