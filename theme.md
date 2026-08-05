@@ -30,6 +30,7 @@
 |-------|-----|-------|-------|
 | Dark charcoal | `#363636` | Input/textarea text color | `ContactForm.js` |
 | Light gray | `#dbdbdb` | Default border for empty/unfilled form fields | `ContactForm.js` |
+| Sea green | `#3cb371` | Form valid border/shadow | `ContactForm.tsx` |
 | Error red | `#a94442` | Form validation error border, 18+ warning text, 404 page error text | `ContactForm.js`, `index.js`, `404.js` |
 
 ## Social Media (Nav Link Hover Colors)
@@ -56,5 +57,5 @@
 - **Lineart / text:** `#333333` / `#333`
 - **Errors & warnings:** `#a94442`
 - **Form text:** `#363636`
-- **Form borders:** `#dbdbdb` (default), `#a94442` (error)
+- **Form borders:** `#dbdbdb` (default), `#3cb371` (valid), `#a94442` (error)
 - **Social icons (hover):** respective brand colors

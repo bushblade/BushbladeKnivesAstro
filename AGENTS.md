@@ -12,7 +12,7 @@ Minimal [Astro](https://astro.build) v6.4.7 site (`astro/tsconfigs/strict`, Type
 
 - [x] Rebuild Home page (with SEO)
 - [x] Rebuild About page (with SEO)
-- [ ] Rebuild Contact page — currently a stub (`<Layout title="Contact Me" />` only); add content + full SEO (keywords)
+- [x] Rebuild Contact page (with SEO, Netlify form via `ContactForm.tsx` React island)
 - [ ] Rebuild Posts page — currently a stub (`<Layout title="Posts" />` only); add content + full SEO
 - [ ] Rebuild knife product pages — `/woodlore-clone` and `/midi` — currently stubs (title only); add content + full SEO (keywords)
 - [ ] Set up content collections (blog posts, knife data via Markdown/MDX)
@@ -57,6 +57,16 @@ SEO is done via `Layout.astro` props forwarded to `src/components/SEO.astro` (ti
   function Gallery({ photos }: GalleryProps) { ... }
   ```
 - **TypeScript in `<script>` tags**: Use `as` type assertions (e.g. `const el = document.querySelector(...) as HTMLElement | null`) for DOM queries to satisfy strict typing.
+
+## Page Conventions
+
+Typography, sizing and spacing are consistent across pages (see `index.astro`, `about.astro`, `contact.astro`). Follow these on every new page:
+
+- **Page frame**: full-width `<FadeImage>` banner (`layout="full-width"` `loading="eager"`) → `<PageTitle pageTitle="..." tagline="..." />` → content in `<div class="max-w-7xl mx-auto px-4">`. The wrapper owns the `px-4` — never add horizontal padding to inner elements.
+- **Body text**: leave `<p>` unstyled — it inherits `text-lg` (1.125rem) Source Sans Pro from the `Layout` body. Don't set font-size or weight on paragraphs.
+- **Headings**: use the site's 1.5rem scale — section `h2` = `text-2xl`, sub-heading `h3` = `text-xl`, captions `h4` = `text-center italic`. Headings are default weight (400): no `font-medium`, no arbitrary rem sizes (e.g. `text-[1.73rem]`). The page title is `PageTitle` (Bilbo), not a bare `h1`.
+- **Vertical rhythm**: 1rem gaps — put `mt-4` on the second and later items in a run (paragraphs after the first, or blocks after a heading); the first item in a section has no top margin. Section gaps are `my-8`, galleries `my-16`. Don't use an `mb-6` bottom-margin rhythm on body content.
+- **Grids**: `grid grid-cols-1 md:grid-cols-2 gap-8` (stacked on mobile, two columns ≥768px). If a narrower measure is needed, cap the grid with `max-w-[960px] mx-auto` inside the wrapper (as on contact) — don't shrink the outer wrapper.
 
 ## Agent Skills
 
