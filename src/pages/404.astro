@@ -5,9 +5,12 @@ import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title="404">
-	<PageTitle pageTitle="404" tagline="not found" />
-
-	<div class="max-w-7xl mx-auto px-4 text-center my-16">
-		<p>That page doesn't exist. Head back to the <InlineLink href="/">homepage</InlineLink>.</p>
+	<div class="flex-1 flex flex-col items-center justify-center px-4">
+		<div class="border-t-4 border-olive rounded bg-off-white shadow-sm p-4">
+			<PageTitle pageTitle="404" tagline="not found" noMargin />
+			<p class="text-center mt-4">
+				That page doesn't exist. Head back to the <InlineLink href="/">homepage</InlineLink>.
+			</p>
+		</div>
 	</div>
 </Layout>

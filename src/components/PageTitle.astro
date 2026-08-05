@@ -2,12 +2,13 @@
 interface Props {
 	pageTitle: string
 	tagline?: string
+	noMargin?: boolean
 }
 
-const { pageTitle, tagline } = Astro.props
+const { pageTitle, tagline, noMargin = false } = Astro.props
 ---
 
-<div class="text-center mt-16 mb-24">
+<div class="text-center" class:list={{ 'mt-16 mb-24': !noMargin }}>
 	<h1 class="font-['Bilbo'] text-5xl inline-block border-b-[3px] border-olive px-8 leading-[0.9]">
 		{pageTitle}
 		{tagline ? (
