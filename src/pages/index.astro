@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets'
-import BannerImage from '../components/BannerImage.astro'
 import BlockQuote from '../components/BlockQuote.astro'
+import FadeImage from '../components/FadeImage.astro'
 import Gallery from '../components/Gallery'
 import InlineLink from '../components/InlineLink.astro'
 import PageTitle from '../components/PageTitle.astro'
@@ -15,7 +14,6 @@ import galleryImg06 from '../images/index-images/img06.jpg'
 import profileImg from '../images/me-allerthorpe.jpg'
 import Layout from '../layouts/Layout.astro'
 import { buildGalleryPhotos } from '../utils/gallery'
-import { imageFormat } from '../utils/image'
 
 // Gallery alt text: add a short description per photo for screen readers, e.g.
 // { name: 'img01', alt: 'Finished Woodlore-style knife with curly birch handle', src: galleryImg01 }.
@@ -36,21 +34,21 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 	title="Welcome to Bushblade"
 	keywords={['ray mears', 'alan wood', 'bushcraft', 'handmade', 'knife', 'uk']}
 >
-	<BannerImage image={bannerImg} alt="Bushblade knives banner" />
+	<FadeImage src={bannerImg} alt="Bushblade knives banner" class="w-full" layout="full-width" loading="eager" />
 
 	<div class="max-w-7xl mx-auto px-4">
 		<PageTitle pageTitle="Welcome to Bushblade" tagline="handmade knives by Will Adams" />
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
 			<div class="md:col-start-2 md:row-start-1">
-				<Image
+				<FadeImage
 					src={profileImg}
 					alt="Will Adams"
 					title="Will Adams"
 					class="w-full"
 					width={800}
+					layout="constrained"
 					loading="eager"
-					format={imageFormat}
 				/>
 			</div>
 			<div class="md:col-start-1 md:row-start-1">

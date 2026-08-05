@@ -1,11 +1,11 @@
 ---
-import BannerImage from '../components/BannerImage.astro'
+import FadeImage from '../components/FadeImage.astro'
 import PageTitle from '../components/PageTitle.astro'
 import bannerImg from '../images/contact-banner.jpg'
 import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title="Contact Me">
-	<BannerImage image={bannerImg} alt="contact-banner" />
+	<FadeImage src={bannerImg} alt="contact-banner" class="w-full" layout="full-width" loading="eager" />
 	<PageTitle pageTitle="Contact Me" />
 </Layout>

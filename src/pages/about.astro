@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets'
-import BannerImage from '../components/BannerImage.astro'
 import BlockQuote from '../components/BlockQuote.astro'
+import FadeImage from '../components/FadeImage.astro'
 import Gallery from '../components/Gallery'
 import InlineLink from '../components/InlineLink.astro'
 import PageTitle from '../components/PageTitle.astro'
@@ -17,7 +16,6 @@ import meintreeImg from '../images/meintree.jpg'
 import woodsmokeImg from '../images/woodsmoke2003.jpg'
 import Layout from '../layouts/Layout.astro'
 import { buildGalleryPhotos } from '../utils/gallery'
-import { imageFormat } from '../utils/image'
 
 // Gallery alt text: add a short description per photo for screen readers, e.g.
 // { name: 'img07', alt: 'Will hammering a blade in the forge', src: meImg07 }.
@@ -50,7 +48,7 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 		'survival',
 	]}
 >
-	<BannerImage image={bannerImg} alt="knifemaking banner" />
+	<FadeImage src={bannerImg} alt="knifemaking banner" class="w-full" layout="full-width" loading="eager" />
 	<PageTitle
 		pageTitle="A little about me"
 		tagline="bushcrafter, climber, developer, dad..."
@@ -78,27 +76,27 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 				</p>
 			</div>
 			<div class="md:col-start-2 md:row-start-1">
-				<Image
+				<FadeImage
 					src={meintreeImg}
 					alt="Will Adams"
 					title="Yep that's me"
 					class="w-full"
 					width={800}
+					layout="constrained"
 					loading="eager"
-					format={imageFormat}
 				/>
 			</div>
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
 			<div class="md:col-start-1 md:row-start-1">
-				<Image
+				<FadeImage
 					src={woodsmokeImg}
 					alt="Woodsmoke 2003"
 					title="June 2003"
 					class="w-full"
 					width={800}
-					format={imageFormat}
+					layout="constrained"
 				/>
 				<h4 class="text-center italic my-2">Woodsmoke - June 2003</h4>
 			</div>

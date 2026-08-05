@@ -1,11 +1,11 @@
 ---
-import BannerImage from '../../components/BannerImage.astro'
+import FadeImage from '../../components/FadeImage.astro'
 import PageTitle from '../../components/PageTitle.astro'
 import bannerImg from '../../images/woodlore-clone-banner.jpg'
 import Layout from '../../layouts/Layout.astro'
 ---
 
 <Layout title="Woodlore Clone">
-	<BannerImage image={bannerImg} alt="woodlore-clone-banner" />
+	<FadeImage src={bannerImg} alt="woodlore-clone-banner" class="w-full" layout="full-width" loading="eager" />
 	<PageTitle pageTitle="Woodlore Clone" />
 </Layout>

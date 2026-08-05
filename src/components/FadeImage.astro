@@ -1,0 +1,62 @@
+---
+import { Picture } from 'astro:assets'
+import type { ImageMetadata, ImageOutputFormat } from 'astro'
+
+interface Props {
+	src: ImageMetadata
+	alt: string
+	class?: string
+	title?: string
+	width?: number
+	layout?: 'constrained' | 'full-width' | 'fixed' | 'none'
+	loading?: 'eager' | 'lazy'
+	priority?: boolean
+	widths?: number[]
+	sizes?: string
+	quality?: number
+	pictureAttributes?: Record<string, string>
+}
+
+const {
+	src,
+	alt,
+	class: className,
+	title,
+	width,
+	layout,
+	loading,
+	priority,
+	widths,
+	sizes,
+	quality,
+	pictureAttributes,
+} = Astro.props
+
+// Dev encodes only webp (avif/AV1 encoding is far too slow for on-demand
+// sharp); production pre-generates avif + webp at build time.
+const formats: ImageOutputFormat[] = import.meta.env.PROD ? ['avif', 'webp'] : ['webp']
+---
+
+<Picture
+	src={src}
+	alt={alt}
+	formats={formats}
+	class={className ? `${className} image-fade` : 'image-fade'}
+	title={title}
+	width={width}
+	layout={layout}
+	loading={loading}
+	priority={priority}
+	widths={widths}
+	sizes={sizes}
+	quality={quality}
+	pictureAttributes={pictureAttributes}
+	onload="this.classList.add('is-loaded')"
+	onerror="this.classList.add('is-loaded')"
+/>
+<script is:inline>
+	(() => {
+		const img = document.currentScript?.previousElementSibling?.querySelector('img')
+		if (img?.complete) img.classList.add('is-loaded')
+	})()
+</script>
