@@ -9,6 +9,9 @@ import { defineConfig } from 'astro/config'
 export default defineConfig({
 	site: 'https://bushblade.co.uk',
 	integrations: [react(), sitemap()],
+	redirects: {
+		'/woodlore-clone': '/knives/woodlore-clone',
+	},
 	vite: {
 		plugins: [tailwindcss()],
 	},
