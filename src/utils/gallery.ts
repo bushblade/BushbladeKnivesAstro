@@ -2,6 +2,18 @@ import { getImage } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 import type { Photo } from 'react-photo-album'
 
+export const buildGalleryPhotosFromDir = async (
+	images: Record<string, ImageMetadata>,
+): Promise<Photo[]> => {
+	const sources = Object.entries(images)
+		.map(([path, src]) => ({
+			name: path.slice(path.lastIndexOf('/') + 1).replace(/\.\w+$/, ''),
+			src,
+		}))
+		.sort((a, b) => b.name.localeCompare(a.name))
+	return buildGalleryPhotos(sources)
+}
+
 export const buildGalleryPhotos = async (
 	sources: readonly { name: string; alt?: string; src: ImageMetadata }[],
 ): Promise<Photo[]> =>

@@ -1,4 +1,5 @@
 ---
+import type { ImageMetadata } from 'astro'
 import Card from '../../components/Card.astro'
 import FadeImage from '../../components/FadeImage.astro'
 import Gallery from '../../components/Gallery'
@@ -9,79 +10,15 @@ import WoodloreSVG from '../../components/knives/WoodloreSVG.astro'
 import PageTitle from '../../components/PageTitle.astro'
 import { SITE } from '../../data/site'
 import bannerImg from '../../images/woodlore-clone-banner.jpg'
-import img04 from '../../images/woodlore-clone-images/img04.jpg'
-import img05 from '../../images/woodlore-clone-images/img05.jpg'
-import img06 from '../../images/woodlore-clone-images/img06.jpg'
-import img07 from '../../images/woodlore-clone-images/img07.jpg'
-import img08 from '../../images/woodlore-clone-images/img08.jpg'
-import img09 from '../../images/woodlore-clone-images/img09.jpg'
-import img10 from '../../images/woodlore-clone-images/img10.jpg'
-import img11 from '../../images/woodlore-clone-images/img11.jpg'
-import img12 from '../../images/woodlore-clone-images/img12.jpg'
-import img13 from '../../images/woodlore-clone-images/img13.jpg'
-import img14 from '../../images/woodlore-clone-images/img14.jpg'
-import img15 from '../../images/woodlore-clone-images/img15.jpg'
-import img16 from '../../images/woodlore-clone-images/img16.jpg'
-import img17 from '../../images/woodlore-clone-images/img17.jpg'
-import img18 from '../../images/woodlore-clone-images/img18.jpg'
-import img19 from '../../images/woodlore-clone-images/img19.jpg'
-import img20 from '../../images/woodlore-clone-images/img20.jpg'
-import img21 from '../../images/woodlore-clone-images/img21.jpg'
-import img22 from '../../images/woodlore-clone-images/img22.jpg'
-import img23 from '../../images/woodlore-clone-images/img23.jpg'
-import img24 from '../../images/woodlore-clone-images/img24.jpg'
-import img25 from '../../images/woodlore-clone-images/img25.jpg'
-import img26 from '../../images/woodlore-clone-images/img26.jpg'
-import img27 from '../../images/woodlore-clone-images/img27.jpg'
-import img28 from '../../images/woodlore-clone-images/img28.jpg'
-import img29 from '../../images/woodlore-clone-images/img29.jpg'
-import img30 from '../../images/woodlore-clone-images/img30.jpg'
-import img31 from '../../images/woodlore-clone-images/img31.jpg'
-import img32 from '../../images/woodlore-clone-images/img32.jpg'
-import img33 from '../../images/woodlore-clone-images/img33.jpg'
-import img34 from '../../images/woodlore-clone-images/img34.jpg'
-import img35 from '../../images/woodlore-clone-images/img35.jpg'
-import img36 from '../../images/woodlore-clone-images/img36.jpg'
 import Layout from '../../layouts/Layout.astro'
-import { buildGalleryPhotos } from '../../utils/gallery'
+import { buildGalleryPhotosFromDir } from '../../utils/gallery'
 
-const gallerySources = [
-	{ name: 'img36', src: img36 },
-	{ name: 'img35', src: img35 },
-	{ name: 'img34', src: img34 },
-	{ name: 'img33', src: img33 },
-	{ name: 'img32', src: img32 },
-	{ name: 'img31', src: img31 },
-	{ name: 'img30', src: img30 },
-	{ name: 'img29', src: img29 },
-	{ name: 'img28', src: img28 },
-	{ name: 'img27', src: img27 },
-	{ name: 'img26', src: img26 },
-	{ name: 'img25', src: img25 },
-	{ name: 'img24', src: img24 },
-	{ name: 'img23', src: img23 },
-	{ name: 'img22', src: img22 },
-	{ name: 'img21', src: img21 },
-	{ name: 'img20', src: img20 },
-	{ name: 'img19', src: img19 },
-	{ name: 'img18', src: img18 },
-	{ name: 'img17', src: img17 },
-	{ name: 'img16', src: img16 },
-	{ name: 'img15', src: img15 },
-	{ name: 'img14', src: img14 },
-	{ name: 'img13', src: img13 },
-	{ name: 'img12', src: img12 },
-	{ name: 'img11', src: img11 },
-	{ name: 'img10', src: img10 },
-	{ name: 'img09', src: img09 },
-	{ name: 'img08', src: img08 },
-	{ name: 'img07', src: img07 },
-	{ name: 'img06', src: img06 },
-	{ name: 'img05', src: img05 },
-	{ name: 'img04', src: img04 },
-]
-
-const galleryPhotos = await buildGalleryPhotos(gallerySources)
+const galleryPhotos = await buildGalleryPhotosFromDir(
+	import.meta.glob<ImageMetadata>('../../images/woodlore-clone-images/*.jpg', {
+		eager: true,
+		import: 'default',
+	}),
+)
 ---
 
 <Layout
