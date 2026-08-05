@@ -32,6 +32,7 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 
 <Layout
 	title="Welcome to Bushblade"
+	description="Handmade bushcraft knives by Will Adams in the UK — Woodlore Clone and Midi models, built for years of use."
 	keywords={['ray mears', 'alan wood', 'bushcraft', 'handmade', 'knife', 'uk']}
 >
 	<FadeImage src={bannerImg} alt="Bushblade knives banner" class="w-full" layout="full-width" loading="eager" />
@@ -40,25 +41,13 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 		<PageTitle pageTitle="Welcome to Bushblade" tagline="handmade knives by Will Adams" />
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
-			<div class="md:col-start-2 md:row-start-1">
-				<FadeImage
-					src={profileImg}
-					alt="Will Adams"
-					title="Will Adams"
-					class="w-full"
-					width={800}
-					layout="constrained"
-					loading="eager"
-				/>
-			</div>
 			<div class="md:col-start-1 md:row-start-1">
 				<BlockQuote>
-				Having used and acquired many knives over the years, from a
-				variety of brand name manufacturers and without sufficient funds to
-				purchase my ideal knife I decided to try and make my own.
-			</BlockQuote>
-				<br />
-				<p>
+					Having used and acquired many knives over the years, from a variety
+					of brand name manufacturers and without sufficient funds to purchase
+					my ideal knife I decided to try and make my own.
+				</BlockQuote>
+				<p class="mt-4">
 					<strong>I made my first knives in 2001</strong> yielding functional
 					success in replicating the now famous Woodlore knives designed by Ray
 					Mears and at the time made by Alan Wood. I still own these knives but
@@ -73,6 +62,17 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 					the process.
 				</p>
 			</div>
+			<div class="md:col-start-2 md:row-start-1">
+				<FadeImage
+					src={profileImg}
+					alt="Will Adams"
+					title="Will Adams"
+					class="w-full"
+					width={800}
+					layout="constrained"
+					loading="eager"
+				/>
+			</div>
 		</div>
 
 		<div class="text-center my-8">
@@ -83,12 +83,13 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 				<InlineLink href="/contact">contact me</InlineLink>
 				with any comments or enquiries.
 			</p>
-		<h2 class="text-red-error text-2xl mt-8">
-			You must be over 18 years of age to order a knife.
-		</h2>
-	</div>
+			<h2 class="text-red-error text-3xl mt-8">
+				You must be over 18 years of age to order a knife.
+			</h2>
+		</div>
 
-	<div class="my-16">
-		<Gallery client:load photos={galleryPhotos} />
+		<div class="my-16">
+			<Gallery client:load photos={galleryPhotos} />
+		</div>
 	</div>
 </Layout>

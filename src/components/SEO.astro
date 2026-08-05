@@ -18,7 +18,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href
 <title>{formatTitle(pageTitle)}</title>
 <meta name="description" content={description} />
 {keywords?.length ? <meta name="keywords" content={keywords.join(', ')} /> : null}
-<meta property="og:title" content={pageTitle} />
+<meta property="og:title" content={formatTitle(pageTitle)} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonical} />

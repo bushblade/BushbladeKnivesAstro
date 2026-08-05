@@ -1,8 +1,8 @@
 import {
 	type ChangeEvent,
 	type Dispatch,
-	type FormEvent,
 	type SetStateAction,
+	type SyntheticEvent,
 	useState,
 } from 'react'
 
@@ -56,7 +56,7 @@ function ContactForm() {
 			setter({ ...field, valid: field.regex.test(value), text: value })
 		}
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		if (!checkValid(name, email, message)) return
 
@@ -90,8 +90,8 @@ function ContactForm() {
 	if (sent) {
 		return (
 			<article className="mt-[30%] text-center border-t-[5px] border-olive rounded-[5px] p-4 bg-off-white shadow-[0_3px_6px_1px_rgba(0,0,0,0.05)]">
-				<h2 className="text-[1.73rem] font-medium mb-6">Message Sent!</h2>
-				<p>
+				<h2 className="text-3xl">Message Sent!</h2>
+				<p className="mt-4">
 					<span role="img" aria-label="mail">
 						📩
 					</span>{' '}

@@ -18,7 +18,7 @@ import Layout from '../layouts/Layout.astro'
 import { buildGalleryPhotos } from '../utils/gallery'
 
 // Gallery alt text: add a short description per photo for screen readers, e.g.
-// { name: 'img07', alt: 'Will hammering a blade in the forge', src: meImg07 }.
+// { name: 'img07', alt: 'Woodland pottery', src: meImg07 }.
 // `alt` is optional — omit it and the generic filename is used instead.
 const gallerySources = [
 	{ name: 'img07', src: meImg07, alt: 'Woodland pottery' },
@@ -35,6 +35,7 @@ const galleryPhotos = await buildGalleryPhotos(gallerySources)
 
 <Layout
 	title="A little about me"
+	description="Bushcrafter, climber, web developer and dad — a bit about the person behind Bushblade Knives, from the Woodsmoke school to making knives."
 	keywords={[
 		'will adams',
 		'knifemaker',
