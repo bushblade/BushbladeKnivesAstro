@@ -66,7 +66,7 @@ Typography, sizing and spacing are consistent across pages (see `index.astro`, `
 - **Body text**: leave `<p>` unstyled — it inherits `text-lg` (1.125rem) Source Sans Pro from the `Layout` body. Don't set font-size or weight on paragraphs.
 - **Headings**: use the site's 1.5rem scale — section `h2` = `text-2xl`, sub-heading `h3` = `text-xl`, captions `h4` = `text-center italic`. Headings are default weight (400): no `font-medium`, no arbitrary rem sizes (e.g. `text-[1.73rem]`). The page title is `PageTitle` (Bilbo), not a bare `h1`.
 - **Vertical rhythm**: 1rem gaps — put `mt-4` on the second and later items in a run (paragraphs after the first, or blocks after a heading); the first item in a section has no top margin. Section gaps are `my-8`, galleries `my-16`. Don't use an `mb-6` bottom-margin rhythm on body content.
-- **Grids**: `grid grid-cols-1 md:grid-cols-2 gap-8` (stacked on mobile, two columns ≥768px). If a narrower measure is needed, cap the grid with `max-w-[960px] mx-auto` inside the wrapper (as on contact) — don't shrink the outer wrapper.
+- **Grids**: `grid grid-cols-1 md:grid-cols-2 gap-8` (stacked on mobile, two columns ≥768px). If a narrower measure is needed, cap the grid with `max-w-240 mx-auto` inside the wrapper (as on contact) — don't shrink the outer wrapper.
 
 ## Agent Skills
 
