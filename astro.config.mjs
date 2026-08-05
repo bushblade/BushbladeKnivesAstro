@@ -11,6 +11,7 @@ export default defineConfig({
 	integrations: [react(), sitemap()],
 	redirects: {
 		'/woodlore-clone': '/knives/woodlore-clone',
+		'/midi': '/knives/midi',
 	},
 	vite: {
 		plugins: [tailwindcss()],
