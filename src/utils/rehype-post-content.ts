@@ -30,6 +30,28 @@ const INLINE_LINK_CLASSES = [
 	'font-semibold',
 ]
 
+const TAG_CLASSES: Record<string, string[]> = {
+	h2: ['text-3xl', 'mt-8', 'mb-4'],
+	h3: ['text-2xl', 'mt-6', 'mb-2'],
+	h4: ['text-center', 'italic'],
+	p: ['mt-4'],
+	hr: ['my-8', 'border-0', 'h-px', 'bg-black/20'],
+	ul: ['pl-6', 'my-4'],
+	ol: ['pl-6', 'my-4'],
+	li: ['mt-1'],
+}
+
+const IMG_EXTRA_CLASSES = ['block', 'mx-auto', 'my-8', 'max-w-full']
+
+function addClasses(el: HastElement, classes: string[]) {
+	const existing = Array.isArray(el.properties.className)
+		? el.properties.className
+		: el.properties.className
+			? [el.properties.className]
+			: []
+	el.properties.className = [...existing, ...classes]
+}
+
 function isExternal(href: string): boolean {
 	try {
 		const url = new URL(href)
@@ -50,21 +72,16 @@ function walk(node: HastNode) {
 				el.properties.target = '_blank'
 				el.properties.rel = 'noopener noreferrer'
 			}
-			const existing = Array.isArray(el.properties.className)
-				? el.properties.className
-				: el.properties.className
-					? [el.properties.className]
-					: []
-			el.properties.className = [...existing, ...INLINE_LINK_CLASSES]
+			addClasses(el, INLINE_LINK_CLASSES)
 		}
 
 		if (el.tagName === 'img') {
-			const existing = Array.isArray(el.properties.className)
-				? el.properties.className
-				: el.properties.className
-					? [el.properties.className]
-					: []
-			el.properties.className = [...existing, 'image-fade']
+			addClasses(el, [...IMG_EXTRA_CLASSES, 'image-fade'])
+		}
+
+		const classes = TAG_CLASSES[el.tagName]
+		if (classes) {
+			addClasses(el, classes)
 		}
 	}
 
