@@ -5,7 +5,7 @@
 		"bash": {
 			"*": "ask",
 			"pnpm *": "allow",
-			"rm *": "deny",
+			"rm *": "ask",
 			"grep *": "allow"
 		},
 		"edit": "ask",

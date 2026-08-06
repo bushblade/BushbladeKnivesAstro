@@ -1,8 +1,47 @@
 ---
+import { getCollection } from 'astro:content'
+import FadeImage from '../components/FadeImage.astro'
 import PageTitle from '../components/PageTitle.astro'
+import PostsCard from '../components/PostsCard.astro'
+import bannerImg from '../images/banner04.jpg'
 import Layout from '../layouts/Layout.astro'
+
+const posts = (await getCollection('posts')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
 ---
 
-<Layout title="Posts">
-	<PageTitle pageTitle="Posts" tagline="articles and info" />
+<Layout
+	title="Posts"
+	description="Bushcraft articles, gear reviews, and knife-making info by Will Adams"
+	keywords={[]}
+>
+	<FadeImage src={bannerImg} alt="Bushblade posts banner" class="w-full" layout="full-width" loading="eager" />
+
+	<div class="max-w-7xl mx-auto px-4">
+		<PageTitle pageTitle="Posts" tagline="articles and info" />
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+			{posts.map((post) => (
+				<div class="post-card">
+					<PostsCard post={post} />
+				</div>
+			))}
+		</div>
+	</div>
 </Layout>
+
+<script>
+	import { gsap } from 'gsap'
+
+	const cards = document.querySelectorAll('.post-card')
+	if (cards.length > 0) {
+		gsap.from(cards, {
+			opacity: 0,
+			y: 100,
+			duration: 0.6,
+			stagger: 0.1,
+			ease: 'power2.out',
+		})
+	}
+</script>
