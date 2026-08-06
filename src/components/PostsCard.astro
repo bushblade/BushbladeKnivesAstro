@@ -23,7 +23,7 @@ const formattedDate = date.toLocaleDateString('en-GB', {
 >
 	<div class="relative border-b-[5px] border-olive after:content-[''] after:border-r-8 after:border-b-8 after:border-t-8 after:border-l-8 after:border-r-olive after:border-b-olive after:border-t-transparent after:border-l-transparent after:rounded-sm after:absolute after:-bottom-3 after:left-1/2 after:-ml-2 after:rotate-45">
 		<div class="h-48 overflow-hidden">
-			<FadeImage src={image} alt={title} layout="full-width" class="h-48 w-full object-cover" />
+			<FadeImage src={image} alt={title} layout="constrained" width={400} class="h-48 w-full object-cover" />
 		</div>
 		<div class="absolute bottom-0 left-0 right-0 flex items-center min-h-16 px-4 bg-linear-to-t from-black/60 to-transparent">
 			<h2 class="text-white text-3xl leading-tight">{title}</h2>
