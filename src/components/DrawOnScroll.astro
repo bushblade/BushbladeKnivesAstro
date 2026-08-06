@@ -1,0 +1,43 @@
+---
+---
+
+<div data-draw-svg>
+	<slot />
+</div>
+
+<script>
+	import { gsap } from 'gsap'
+
+	const wrappers = document.querySelectorAll('[data-draw-svg]')
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+	if (wrappers.length > 0 && !reducedMotion && 'IntersectionObserver' in window) {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (!entry.isIntersecting) continue
+					const svg = (entry.target as HTMLElement).querySelector('svg') as SVGSVGElement | null
+					if (svg) {
+						gsap.to(svg, {
+							opacity: 1,
+							strokeDashoffset: 0,
+							duration: 2.5,
+							delay: 0.2,
+							ease: 'power2.out',
+						})
+					}
+					observer.unobserve(entry.target)
+				}
+			},
+			{ threshold: 1 },
+		)
+
+		for (const wrapper of wrappers) {
+			const svg = (wrapper as HTMLElement).querySelector('svg') as SVGSVGElement | null
+			if (svg) {
+				gsap.set(svg, { opacity: 0, strokeDasharray: 100, strokeDashoffset: 100 })
+				observer.observe(wrapper)
+			}
+		}
+	}
+</script>
