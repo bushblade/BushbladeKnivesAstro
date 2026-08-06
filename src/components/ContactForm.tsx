@@ -14,11 +14,17 @@ interface FieldState {
 
 const EMAIL_REGEX = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/
 
+const FIELD_ERRORS = {
+	name: 'Please enter your name.',
+	email: 'Please enter a valid email address.',
+	message: 'Please enter a message.',
+} as const
+
 const BASE_INPUT_CLASSES =
-	'w-full bg-[whitesmoke] text-charcoal border rounded-[3px] py-1.5 px-2.5 h-[2.25em] leading-[1.5] text-base shadow-[inset_0_1px_2px_rgba(10,10,10,0.1)] focus:outline-none'
+	'w-full bg-[whitesmoke] text-charcoal border rounded-[3px] py-1.5 px-2.5 h-[2.25em] leading-[1.5] text-base shadow-[inset_0_1px_2px_rgba(10,10,10,0.1)] focus:outline-2 focus:outline-charcoal focus:outline-offset-2'
 
 const BUTTON_CLASSES =
-	'border-2 border-[silver] rounded-[0.2rem] px-4 py-[0.3rem] cursor-pointer bg-transparent uppercase inline-block relative transition-[background] duration-200 ease-in-out hover:bg-[rgba(51,51,51,0.07)] focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 mr-4 mb-4 max-md:mr-2'
+	'border-2 border-[silver] rounded-[0.2rem] px-4 py-[0.3rem] cursor-pointer bg-transparent uppercase inline-block relative transition-[background] duration-200 ease-in-out hover:bg-[rgba(51,51,51,0.07)] focus:outline-2 focus:outline-charcoal focus:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mr-4 mb-4 max-md:mr-2'
 
 const encode = (data: Record<string, string>) =>
 	Object.keys(data)
@@ -26,6 +32,8 @@ const encode = (data: Record<string, string>) =>
 		.join('&')
 
 const checkValid = (...fields: FieldState[]) => fields.every(({ text, regex }) => regex.test(text))
+
+const isInvalid = (field: FieldState) => field.text.length > 0 && !field.valid
 
 const inputClasses = (field: FieldState): string => {
 	const filled = field.text.length > 0
@@ -115,9 +123,16 @@ function ContactForm() {
 					name="name"
 					value={name.text}
 					placeholder="Your Name"
+					aria-invalid={isInvalid(name)}
+					aria-describedby={isInvalid(name) ? 'name-error' : undefined}
 					onChange={handleChange(name, setName)}
 					className={inputClasses(name)}
 				/>
+				{isInvalid(name) ? (
+					<p id="name-error" className="sr-only">
+						{FIELD_ERRORS.name}
+					</p>
+				) : null}
 			</div>
 			<div className="mb-6">
 				<label htmlFor="email" className="block text-base font-bold mb-2">
@@ -129,9 +144,16 @@ function ContactForm() {
 					name="email"
 					value={email.text}
 					placeholder="you@youremail.com"
+					aria-invalid={isInvalid(email)}
+					aria-describedby={isInvalid(email) ? 'email-error' : undefined}
 					onChange={handleChange(email, setEmail)}
 					className={inputClasses(email)}
 				/>
+				{isInvalid(email) ? (
+					<p id="email-error" className="sr-only">
+						{FIELD_ERRORS.email}
+					</p>
+				) : null}
 			</div>
 			<div className="mb-6">
 				<label htmlFor="message" className="block text-base font-bold mb-2">
@@ -142,9 +164,16 @@ function ContactForm() {
 					name="message"
 					value={message.text}
 					placeholder="What do you want to say?"
+					aria-invalid={isInvalid(message)}
+					aria-describedby={isInvalid(message) ? 'message-error' : undefined}
 					onChange={handleChange(message, setMessage)}
 					className={textareaClasses(message)}
 				/>
+				{isInvalid(message) ? (
+					<p id="message-error" className="sr-only">
+						{FIELD_ERRORS.message}
+					</p>
+				) : null}
 			</div>
 			<div className="flex flex-wrap justify-around md:justify-start">
 				<button

@@ -20,7 +20,12 @@ interface HastRoot {
 	children: HastNode[]
 }
 
-type HastNode = HastElement | HastRoot | { type: string; children?: HastNode[] }
+interface HastText {
+	type: 'text'
+	value: string
+}
+
+type HastNode = HastElement | HastRoot | HastText | { type: string; children?: HastNode[] }
 
 const INLINE_LINK_CLASSES = [
 	'transition-all',
@@ -69,6 +74,12 @@ function walk(node: HastNode) {
 			if (typeof href === 'string' && isExternal(href)) {
 				el.properties.target = '_blank'
 				el.properties.rel = 'noopener noreferrer'
+				el.children.push({
+					type: 'element',
+					tagName: 'span',
+					properties: { className: ['sr-only'] },
+					children: [{ type: 'text', value: '(opens in new tab)' }],
+				})
 			}
 			addClasses(el, INLINE_LINK_CLASSES)
 		}

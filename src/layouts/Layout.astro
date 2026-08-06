@@ -34,12 +34,19 @@ const { title, description, keywords, image } = Astro.props
 		<SEO title={title} description={description} keywords={keywords} image={image} />
 	</head>
 	<body class="bg-off-white min-h-full text-lg flex flex-col">
+		<a
+			id="skip-link"
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded focus:bg-olive focus:px-4 focus:py-2 focus:text-dark-gray focus:shadow"
+		>
+			Skip to content
+		</a>
 		<div
 			class="fixed inset-0 -z-10 pointer-events-none"
 			style={`background-image: url(${flowerOfLife.src}); background-size: cover; background-position: center; background-repeat: no-repeat;`}
 		></div>
 		<Navbar />
-		<main class="flex-1 flex flex-col">
+		<main id="main-content" class="flex-1 flex flex-col">
 			<slot />
 		</main>
 		<Footer />

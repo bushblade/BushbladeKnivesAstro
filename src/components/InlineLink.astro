@@ -12,4 +12,5 @@ const resolvedRel = target === '_blank' ? (rel ?? 'noopener noreferrer') : rel
 
 <a {href} {target} rel={resolvedRel} class:list={["transition-all hover:bg-olive shadow-underline-medium-gray text-olive-gray font-semibold", className]}>
 	<slot />
+	{target === '_blank' ? <span class="sr-only">(opens in new tab)</span> : null}
 </a>

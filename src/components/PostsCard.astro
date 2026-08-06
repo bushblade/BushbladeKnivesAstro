@@ -34,11 +34,11 @@ const formattedDate = date.toLocaleDateString('en-GB', {
 	</div>
 	<div class="grid grid-cols-2 px-4 pt-4 pb-4 text-[dimgrey] italic">
 		<div class="flex items-center gap-1">
-			<User class="w-4 h-4" />
+			<User aria-hidden="true" class="w-4 h-4" />
 			<span>{author}</span>
 		</div>
 		<div class="flex items-center gap-1">
-			<Calendar class="w-4 h-4" />
+			<Calendar aria-hidden="true" class="w-4 h-4" />
 			<span>{formattedDate}</span>
 		</div>
 	</div>

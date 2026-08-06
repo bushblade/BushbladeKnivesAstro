@@ -35,7 +35,8 @@ const posts = (await getCollection('posts')).sort(
 	import { gsap } from 'gsap'
 
 	const cards = document.querySelectorAll('.post-card')
-	if (cards.length > 0) {
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	if (cards.length > 0 && !reducedMotion) {
 		gsap.from(cards, {
 			opacity: 0,
 			y: 100,

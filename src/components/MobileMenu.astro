@@ -12,25 +12,25 @@ const socialLinks = [
 		href: 'https://www.facebook.com/Bushbladehandmadeknives/',
 		icon: Facebook,
 		hoverColor: 'hover:text-facebook',
-		ariaLabel: 'Facebook',
+		ariaLabel: 'Facebook (opens in new tab)',
 	},
 	{
 		href: 'https://www.instagram.com/bushblade/',
 		icon: Instagram,
 		hoverColor: 'hover:text-instagram',
-		ariaLabel: 'Instagram',
+		ariaLabel: 'Instagram (opens in new tab)',
 	},
 	{
 		href: 'https://x.com/Bushblade',
 		icon: Twitter,
 		hoverColor: 'hover:text-twitter',
-		ariaLabel: 'Twitter / X',
+		ariaLabel: 'Twitter / X (opens in new tab)',
 	},
 	{
 		href: 'https://www.youtube.com/@bushbladehandmadeknives2528',
 		icon: YouTube,
 		hoverColor: 'hover:text-youtube',
-		ariaLabel: 'YouTube',
+		ariaLabel: 'YouTube (opens in new tab)',
 	},
 ]
 ---
@@ -42,10 +42,10 @@ const socialLinks = [
 	<div class="flex flex-col items-center justify-center h-full">
 		<div class="flex flex-col items-center gap-8 text-white text-2xl italic tracking-wider">
 			{leftLinks.map(({ href, label }) => (
-				<a href={href} class="hover:text-olive transition-colors underline-offset-4 decoration-2" class:list={{ 'underline': isActive(href, currentPath) }}>{label}</a>
+				<a href={href} aria-current={isActive(href, currentPath) ? 'page' : null} class="hover:text-olive transition-colors underline-offset-4 decoration-2" class:list={{ 'underline': isActive(href, currentPath) }}>{label}</a>
 			))}
 			{rightLinks.map(({ href, label }) => (
-				<a href={href} class="hover:text-olive transition-colors underline-offset-4 decoration-2" class:list={{ 'underline': isActive(href, currentPath) }}>{label}</a>
+				<a href={href} aria-current={isActive(href, currentPath) ? 'page' : null} class="hover:text-olive transition-colors underline-offset-4 decoration-2" class:list={{ 'underline': isActive(href, currentPath) }}>{label}</a>
 			))}
 		</div>
 

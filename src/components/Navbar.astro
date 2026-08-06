@@ -15,25 +15,25 @@ const socialLinks = [
 		href: 'https://www.facebook.com/Bushbladehandmadeknives/',
 		icon: Facebook,
 		hoverColor: 'hover:text-facebook',
-		ariaLabel: 'Facebook',
+		ariaLabel: 'Facebook (opens in new tab)',
 	},
 	{
 		href: 'https://www.instagram.com/bushblade/',
 		icon: Instagram,
 		hoverColor: 'hover:text-instagram',
-		ariaLabel: 'Instagram',
+		ariaLabel: 'Instagram (opens in new tab)',
 	},
 	{
 		href: 'https://x.com/Bushblade',
 		icon: Twitter,
 		hoverColor: 'hover:text-twitter',
-		ariaLabel: 'Twitter / X',
+		ariaLabel: 'Twitter / X (opens in new tab)',
 	},
 	{
 		href: 'https://www.youtube.com/@bushbladehandmadeknives2528',
 		icon: YouTube,
 		hoverColor: 'hover:text-youtube',
-		ariaLabel: 'YouTube',
+		ariaLabel: 'YouTube (opens in new tab)',
 	},
 ]
 ---
@@ -69,7 +69,7 @@ const socialLinks = [
 			<div class="flex items-center justify-center gap-6 max-lg:hidden">
 				{leftLinks.map(({ href, label }) => (
 					<span class="h-full flex items-start pt-1.5" class:list={{ 'border-b-4 border-medium-gray': isActive(href, currentPath) }}>
-						<a href={href} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
+						<a href={href} aria-current={isActive(href, currentPath) ? 'page' : null} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
 					</span>
 				))}
 			</div>
@@ -77,7 +77,7 @@ const socialLinks = [
 			<div class="flex items-center justify-center gap-6 max-lg:hidden">
 				{rightLinks.map(({ href, label }) => (
 					<span class="h-full flex items-start pt-1.5" class:list={{ 'border-b-4 border-charcoal': isActive(href, currentPath) }}>
-						<a href={href} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
+						<a href={href} aria-current={isActive(href, currentPath) ? 'page' : null} class="text-shadow-lg transition-all duration-200 hover:scale-[1.08] hover:text-shadow-lg/20">{label}</a>
 					</span>
 				))}
 			</div>
@@ -87,6 +87,9 @@ const socialLinks = [
 <button
 	id="burger-btn"
 	class="hidden max-lg:flex fixed right-4 top-7 z-[60] -translate-y-1/2 items-center justify-center w-12 h-12 text-dark-gray cursor-pointer"
+	aria-controls="mobile-menu"
+	aria-expanded="false"
+	aria-label="Open menu"
 >
 	<Hamburger class="w-7 h-7" />
 </button>
@@ -98,7 +101,8 @@ import { gsap } from 'gsap'
 
 const socialRow = document.querySelector('.social-row') as HTMLElement | null
 const logo = document.getElementById('logo-link') as HTMLElement | null
-if (socialRow && logo) {
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+if (socialRow && logo && !reducedMotion) {
 	const rowHeight = socialRow.offsetHeight
 	gsap.set(logo, { y: rowHeight > 0 ? -28 : 0, scale: rowHeight > 0 ? 1 : 0.55 })
 	let isScrolled = false
@@ -124,6 +128,12 @@ if (socialRow && logo) {
 
 const burgerBtn = document.getElementById('burger-btn') as HTMLElement | null
 const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null
+const inertTargets = [
+	document.getElementById('skip-link'),
+	document.getElementById('main-nav'),
+	document.querySelector('main'),
+	document.querySelector('footer'),
+].filter((el): el is HTMLElement => el !== null)
 
 if (burgerBtn && mobileMenu) {
 	let isOpen = false
@@ -132,10 +142,17 @@ if (burgerBtn && mobileMenu) {
 	const midPath = svg?.querySelector('.burger-mid')
 	const botPath = svg?.querySelector('.burger-bot')
 	const children = mobileMenu.querySelectorAll('a')
+	const firstLink = children[0] as HTMLAnchorElement | undefined
+
+	const setInert = (value: boolean) => {
+		for (const el of inertTargets) el.inert = value
+	}
 
 	const openMenu = () => {
 		if (isOpen) return
 		isOpen = true
+		burgerBtn.setAttribute('aria-expanded', 'true')
+		burgerBtn.setAttribute('aria-label', 'Close menu')
 
 		if (topPath) gsap.to(topPath, { attr: { d: 'M5 5 L19 19' }, duration: 0.3, ease: 'back.out(1.5)' })
 		if (midPath) gsap.to(midPath, { opacity: 0, duration: 0.2 })
@@ -149,11 +166,16 @@ if (burgerBtn && mobileMenu) {
 			.fromTo(mobileMenu, { opacity: 0, scale: 0.3, borderRadius: '48px' }, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0)
 			.to(mobileMenu, { scale: 1, borderRadius: '0px', duration: 0.5, ease: 'back.out(1.7)' }, 0)
 		gsap.to(children, { opacity: 1, y: 0, duration: 0.3, stagger: 0.06, ease: 'power2.out' })
+
+		setInert(true)
+		firstLink?.focus()
 	}
 
 	const closeMenu = () => {
 		if (!isOpen) return
 		isOpen = false
+		burgerBtn.setAttribute('aria-expanded', 'false')
+		burgerBtn.setAttribute('aria-label', 'Open menu')
 
 		if (topPath) gsap.to(topPath, { attr: { d: 'M3 6 L21 6' }, duration: 0.3, ease: 'back.out(1.5)' })
 		if (midPath) gsap.to(midPath, { opacity: 1, duration: 0.2 })
@@ -169,12 +191,30 @@ if (burgerBtn && mobileMenu) {
 			ease: 'power2.out',
 			onComplete: () => mobileMenu.classList.add('invisible', 'pointer-events-none'),
 		})
+
+		setInert(false)
+		burgerBtn.focus()
 	}
 
 	burgerBtn.addEventListener('click', () => (isOpen ? closeMenu() : openMenu()))
 
 	document.addEventListener('keydown', (e) => {
-		if (e.key === 'Escape' && isOpen) closeMenu()
+		if (e.key === 'Escape' && isOpen) {
+			closeMenu()
+			return
+		}
+		if (e.key === 'Tab' && isOpen) {
+			if (children.length === 0) return
+			const first = children[0]
+			const last = children[children.length - 1]
+			if (e.shiftKey && document.activeElement === first) {
+				last.focus()
+				e.preventDefault()
+			} else if (!e.shiftKey && document.activeElement === last) {
+				first.focus()
+				e.preventDefault()
+			}
+		}
 	})
 }
 </script>
