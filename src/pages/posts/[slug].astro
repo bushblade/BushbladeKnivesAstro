@@ -35,14 +35,3 @@ const ogImage = `${SITE.url}${image.src}`
 	</div>
 </Layout>
 
-<script>
-	for (const img of document.querySelectorAll<HTMLImageElement>('.post-content img.image-fade')) {
-		if (img.complete) {
-			img.classList.add('is-loaded')
-		} else {
-			img.addEventListener('load', () => img.classList.add('is-loaded'))
-			img.addEventListener('error', () => img.classList.add('is-loaded'))
-		}
-	}
-</script>
-

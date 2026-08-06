@@ -41,8 +41,6 @@ const TAG_CLASSES: Record<string, string[]> = {
 	li: ['mt-1'],
 }
 
-const IMG_EXTRA_CLASSES = ['block', 'mx-auto', 'my-8', 'max-w-full']
-
 function addClasses(el: HastElement, classes: string[]) {
 	const existing = Array.isArray(el.properties.className)
 		? el.properties.className
@@ -73,10 +71,6 @@ function walk(node: HastNode) {
 				el.properties.rel = 'noopener noreferrer'
 			}
 			addClasses(el, INLINE_LINK_CLASSES)
-		}
-
-		if (el.tagName === 'img') {
-			addClasses(el, [...IMG_EXTRA_CLASSES, 'image-fade'])
 		}
 
 		const classes = TAG_CLASSES[el.tagName]

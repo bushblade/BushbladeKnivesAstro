@@ -1,5 +1,6 @@
 // @ts-check
 
+import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
@@ -9,7 +10,7 @@ import { rehypePostContent } from './src/utils/rehype-post-content'
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://bushblade.co.uk',
-	integrations: [react(), sitemap()],
+	integrations: [react(), sitemap(), mdx()],
 	markdown: {
 		rehypePlugins: [rehypePostContent],
 	},
