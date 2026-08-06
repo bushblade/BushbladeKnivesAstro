@@ -1,5 +1,5 @@
 ---
-import { leftLinks, rightLinks } from '../data/links'
+import { isActive, leftLinks, rightLinks } from '../data/links'
 import Facebook from './icons/Facebook.astro'
 import Instagram from './icons/Instagram.astro'
 import Twitter from './icons/Twitter.astro'
@@ -42,10 +42,10 @@ const socialLinks = [
 	<div class="flex flex-col items-center justify-center h-full">
 		<div class="flex flex-col items-center gap-8 text-white text-2xl italic tracking-wider">
 			{leftLinks.map(({ href, label }) => (
-				<a href={href} class="hover:text-olive transition-colors underline-offset-4 decoration-2" class:list={{ 'underline': currentPath === href }}>{label}</a>
+				<a href={href} class="hover:text-olive transition-colors underline-offset-4 decoration-2" class:list={{ 'underline': isActive(href, currentPath) }}>{label}</a>
 			))}
 			{rightLinks.map(({ href, label }) => (
-				<a href={href} class="hover:text-olive transition-colors underline-offset-4 decoration-2" class:list={{ 'underline': currentPath === href }}>{label}</a>
+				<a href={href} class="hover:text-olive transition-colors underline-offset-4 decoration-2" class:list={{ 'underline': isActive(href, currentPath) }}>{label}</a>
 			))}
 		</div>
 

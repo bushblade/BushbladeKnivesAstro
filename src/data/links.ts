@@ -3,6 +3,11 @@ export interface PageLink {
 	label: string
 }
 
+export function isActive(href: string, currentPath: string): boolean {
+	const path = currentPath.replace(/\/+$/, '') || '/'
+	return path === href || (href !== '/' && path.startsWith(`${href}/`))
+}
+
 export const leftLinks: PageLink[] = [
 	{ href: '/', label: 'Home' },
 	{ href: '/about', label: 'About' },
