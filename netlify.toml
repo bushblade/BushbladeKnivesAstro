@@ -1,0 +1,14 @@
+# Redirect old top-level knife paths to their /knives/... locations.
+# force = true so Netlify serves the 301 over the meta-refresh HTML pages
+# that Astro emits from the redirects config in astro.config.mjs.
+[[redirects]]
+	from = "/woodlore-clone"
+	to = "/knives/woodlore-clone"
+	status = 301
+	force = true
+
+[[redirects]]
+	from = "/midi"
+	to = "/knives/midi"
+	status = 301
+	force = true
