@@ -1,0 +1,91 @@
+---
+import { getCollection, render } from 'astro:content'
+import PageTitle from '../../components/PageTitle.astro'
+import { SITE } from '../../data/site'
+import Layout from '../../layouts/Layout.astro'
+
+export async function getStaticPaths() {
+	const posts = await getCollection('posts')
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+const { title, date, author, image, keywords, excerpt } = post.data
+
+const formattedDate = date.toLocaleDateString('en-GB', {
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
+})
+
+const keywordArray = keywords.split(',').map((k) => k.trim())
+const ogImage = `${SITE.url}${image.src}`
+---
+
+<Layout title={title} description={excerpt} keywords={keywordArray} image={ogImage}>
+	<PageTitle pageTitle={title} tagline={`by ${author}, ${formattedDate}`} />
+	<div class="max-w-7xl mx-auto px-4">
+		<article class="post-content max-w-3xl mx-auto my-8">
+			<Content />
+		</article>
+	</div>
+</Layout>
+
+<script>
+	for (const img of document.querySelectorAll<HTMLImageElement>('.post-content img.image-fade')) {
+		if (img.complete) {
+			img.classList.add('is-loaded')
+		} else {
+			img.addEventListener('load', () => img.classList.add('is-loaded'))
+			img.addEventListener('error', () => img.classList.add('is-loaded'))
+		}
+	}
+</script>
+
+<style is:global>
+	.post-content h2 {
+		font-size: 1.875rem;
+		margin: 2rem 0 1rem;
+	}
+
+	.post-content h3 {
+		font-size: 1.5rem;
+		margin: 1.5rem 0 0.5rem;
+	}
+
+	.post-content h4 {
+		text-align: center;
+		font-style: italic;
+	}
+
+	.post-content p + p {
+		margin-top: 1rem;
+	}
+
+	.post-content img {
+		display: block;
+		margin: 2rem auto;
+		max-width: 100%;
+	}
+
+	.post-content hr {
+		margin: 2rem 0;
+		border: none;
+		height: 1px;
+		background: rgba(0, 0, 0, 0.2);
+	}
+
+	.post-content ul,
+	.post-content ol {
+		padding-left: 1.5rem;
+		margin: 1rem 0;
+	}
+
+	.post-content li {
+		margin-top: 0.25rem;
+	}
+</style>
