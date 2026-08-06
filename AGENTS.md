@@ -16,8 +16,8 @@ Minimal [Astro](https://astro.build) v6.4.7 site (`astro/tsconfigs/strict`, Type
 - [x] Rebuild Posts page (with SEO, content collection, GSAP stagger animation)
 - [x] Rebuild knife product pages — `/knives/woodlore-clone` and `/knives/midi` (with SEO, galleries, SVG draw-on-scroll animation)
 - [x] Set up content collections (blog posts via markdown, `posts` collection in `src/content/posts/`)
-- [ ] Rebuild individual post pages — dynamic route at `src/pages/posts/[slug].astro`
-- [ ] Image handling — set up image assets/optimisation (knife photography)
+- [x] Rebuild individual post pages — dynamic route at `src/pages/posts/[slug].astro`
+- [x] Image handling — set up image assets/optimisation (knife photography)
 
 SEO is done via `Layout.astro` props forwarded to `src/components/SEO.astro` (title template `%s | Bushblade Knives`, description, keywords, OG/Twitter tags, canonical). Add `keywords`/`description` to a page's `<Layout>` when it's fully built out.
 
@@ -48,17 +48,6 @@ SEO is done via `Layout.astro` props forwarded to `src/components/SEO.astro` (ti
 - **Gallery grid thumbs fade in via the global CSS `animate-fade-in` utility** (defined in `src/styles/global.css` as a Tailwind v4 `--animate-*` theme key + `@keyframes fade-in`, opacity 0 → 1, 0.4s ease-out). A declarative CSS animation self-completes and replays on re-created nodes, so it can never get stuck invisible — unlike the one-shot JS reveal it replaced. Keep `text-transparent` on the thumb so the generic fallback alt text never flashes on slow loads. Do **not** reintroduce a static `opacity-0` class or a JS reveal effect — react-photo-album re-creates `<img>` DOM nodes whenever the container is re-measured (on resize, and on first render where the initial pass uses the library's built-in `defaultContainerWidth` fallback until the container is measured), so any mount-only reveal leaves the re-created nodes permanently invisible. The image's `transition-property` list must include `transform` and `scale`: Tailwind v4's `scale-*` utilities use the native `scale` property, so a list that omits `scale` makes the hover zoom snap. A photo's `alt` is optional in `buildGalleryPhotos` sources (`{ name, alt?, src }`) — it falls back to the filename. Dev serves images from `/_image` on-demand via sharp (first encode is slow); production pre-generates avif, so slow first loads are a dev-only artifact.
 - **Content collections** — the `image()` schema helper is accessed via the schema function context, not a direct import: `schema: ({ image }) => z.object({ image: image() })`. It resolves relative image paths in frontmatter to `ImageMetadata` objects compatible with `<Picture />` / `<FadeImage />`. `z.string()` does **not** resolve images and will produce a `LocalImageUsedWrongly` error at build time. When creating a new content collection or adding new content files, the dev server must be restarted (or `s` + Enter in the dev terminal to sync) to pick them up — the first build after creating a content collection will fail until the content layer sync runs.
 - **Tailwind v4** uses renamed utilities compared to v3. Common renames: `bg-gradient-to-t` → `bg-linear-to-t` (same for `-to-b`, `-to-r`, etc.), `shadow-lg` stays but arbitrary values lose the underscore-space convention in favor of real spaces. The Tailwind LSP provides `suggestCanonicalClasses` diagnostics — follow those suggestions. Canonical scale values (e.g. `after:border-r-8` over `after:border-r-[8px]`, `after:-bottom-3` over `after:-bottom-[12px]`) are preferred over arbitrary pixel values when they match the 4px-per-unit scale.
-
-## Up next: individual post pages
-
-The posts listing at `/posts` is done. The next step is to build one page per post at `/posts/{slug}`. Key notes to carry forward:
-
-- **Route**: `src/pages/posts/[slug].astro` with `getStaticPaths()` that returns `{ params: { slug: post.id } }` for each entry from `getCollection('posts')`. `post.id` is the slug already (e.g. `'first-aid-kit'`, `'tarp-and-hammock'`, `'prototype-tarp'`).
-- **Rendering markdown**: use `render()` from `astro:content` — it returns a `<Content />` component that compiles the post's markdown body to HTML at build time. No `@astrojs/mdx` needed; this is Astro's built-in API for `.md` files. The original Gatsby posts are plain markdown (no JSX), so `.md` is sufficient.
-- **Post data**: `CollectionEntry<'posts'>` has `data` (frontmatter: `slug`, `title`, `date`, `author`, `image`, `keywords`, `excerpt`) and `id`. The `image` field is already resolved to `ImageMetadata` by the schema's `image()` helper — use with `<FadeImage layout="full-width" />` as the post banner.
-- **Keywords for SEO**: the `keywords` frontmatter field is a comma-separated string (e.g. `'fak,first aid kit,bushblade,personal'`). Split on `,` to produce the array that `<Layout keywords={...}>` expects.
-- **Original reference**: the Gatsby post template is at `/home/will/Dropbox/webProjects/bushblade-knives/src/components/postLayout.js` — it shows how the original site laid out post body content and handled SEO per-post.
-- **In-content images**: the original markdown has inline images (e.g. `![Module One](./module1.jpg 'Module One in Aloksak')`) with paths relative to the `.md` file. Astro's `<Content />` component resolves these automatically — no manual handling needed.
 
 ## Code Style
 
