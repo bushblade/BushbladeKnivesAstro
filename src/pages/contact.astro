@@ -19,6 +19,11 @@ import Layout from '../layouts/Layout.astro'
 	<div class="max-w-7xl mx-auto px-4 my-8">
 		<div class="max-w-240 mx-auto grid grid-cols-1 md:grid-cols-2 gap-y-8 md:gap-8">
 			<div class="order-2 md:order-1">
+				{SITE.acceptingOrders ? null : (
+					<p class="text-center italic text-red-error mb-4">
+						I'm not taking orders right now, but happy to hear from you.
+					</p>
+				)}
 				<ContactForm client:load />
 			</div>
 
@@ -34,15 +39,23 @@ import Layout from '../layouts/Layout.astro'
 				</p>
 				<h3 class="text-2xl mt-4">Can you make a knife to my design?</h3>
 				<p class="mt-4">At the moment I do not take on commissioned designs.</p>
-				<h3 class="text-2xl mt-4">What's your waiting list like?</h3>
-				<p class="mt-4">
-					I have moved away from commissioned work for the foreseeable future. Any knives I have
-					available will be listed on the{' '}
-					<InlineLink href="https://www.facebook.com/Bushbladehandmadeknives/" target="_blank">
-						Facebook page.
-					</InlineLink>{' '}
-					Please follow me on social media for latest availability.
-				</p>
+			<h3 class="text-2xl mt-4">What's your waiting list like?</h3>
+				{SITE.acceptingOrders ? (
+					<p class="mt-4">
+						I have moved away from commissioned work for the foreseeable future. Any
+						knives I have available will be listed on the{' '}
+						<InlineLink href="https://www.facebook.com/Bushbladehandmadeknives/" target="_blank">
+							Facebook page.
+						</InlineLink>{' '}
+						Please follow me on social media for latest availability.
+					</p>
+				) : (
+					<p class="mt-4">
+						I'm not currently taking orders or making knives while I focus on other
+						commitments. When I do reopen, I'll announce it here and on social media
+						first.
+					</p>
+				)}
 			</div>
 		</div>
 	</div>

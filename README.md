@@ -35,3 +35,11 @@ Home, About, Contact, Posts, and Knives (Woodlore Clone, Midi).
 - Build scripts for `esbuild` and `sharp` need approval on a fresh clone:
   `pnpm approve-builds esbuild sharp` (without this, `astro dev` fails silently).
 - The dev server has instant HMR — only run `pnpm build` for a production check.
+
+## Open / closed status
+
+The site is currently **not taking orders** — a sitewide banner says so, the knife-page
+pricing CTAs say "currently not taking orders", and the Contact page shows a closure note.
+To reopen, set `acceptingOrders: true` in `src/data/site.ts` and deploy: the banner
+disappears and the ordering copy restores automatically. Never edit the closure copy in
+place.
