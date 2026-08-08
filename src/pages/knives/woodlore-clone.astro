@@ -57,11 +57,17 @@ const galleryPhotos = await buildGalleryPhotosFromDir(
 						<li>4mm thick O1 tool steel</li>
 						<li>Hardened to ~ 59RC and double tempered</li>
 						<li>Skeletonised and tapered tang for balance and weight reduction</li>
-						<li>
-							Prices start at £{SITE.prices.woodloreClone}{' '}
-							<InlineLink href="/contact">contact me</InlineLink> for further
-							details
-						</li>
+					<li>
+						Prices start at £{SITE.prices.woodloreClone}{' '}
+						{SITE.acceptingOrders ? (
+							<>
+								<InlineLink href="/contact">contact me</InlineLink> for further
+								details
+							</>
+						) : (
+							<>— currently not taking orders</>
+						)}
+					</li>
 					</ul>
 					<p class="mt-4">
 						Browse the gallery below or check out even more images in the{' '}

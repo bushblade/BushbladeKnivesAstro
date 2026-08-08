@@ -5,6 +5,8 @@ export const SITE = {
 	twitterHandle: 'bushblade',
 	themeColor: '#c2c2a3',
 	url: 'https://bushblade.co.uk',
+	// NOTE: toggle this to true to go back to taking orders
+	acceptingOrders: false,
 	prices: {
 		midi: '255',
 		woodloreClone: '320',
