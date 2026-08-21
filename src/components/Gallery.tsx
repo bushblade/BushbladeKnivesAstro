@@ -149,7 +149,7 @@ function Gallery({ photos }: GalleryProps) {
 										sizes="(max-width: 1200px) 100vw, 1200px"
 										alt={photo.alt ?? 'knife'}
 										aria-hidden={index !== current}
-										style={{ maxWidth: photo.width, maxHeight: photo.height }}
+										style={{ maxWidth: photo.width, maxHeight: '1000px' }}
 										className="select-none object-contain"
 										onMouseDown={(event) => event.preventDefault()}
 										onDragStart={(event) => event.preventDefault()}
