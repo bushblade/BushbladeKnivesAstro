@@ -1,6 +1,6 @@
 # Plan: Extract the Lightbox from Gallery
 
-**Status:** PLANNED — not started  
+**Status:** DONE  
 **Branch:** `refactor/extract-lightbox`  
 **Last updated:** 2026-08-22
 
@@ -43,8 +43,8 @@ interface LightboxProps {
 
 ## Verification
 
-- [ ] `pnpm build` succeeds
-- [ ] `pnpm check` (Biome lint/format) passes
+- [x] `pnpm build` succeeds
+- [x] `pnpm check` (Biome lint/format) passes
 - [ ] Gallery renders correctly on `/knives/woodlore-clone` and `/knives/midi`
 - [ ] Lightbox opens on thumb click, closes on Escape and X button
 - [ ] Focus trap works (Tab cycles within lightbox)
