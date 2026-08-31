@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import type { Photo } from 'react-photo-album'
 import Slider from 'react-touch-drag-slider'
@@ -16,17 +16,8 @@ const srcSetOf = (photo: Photo) =>
 	photo.srcSet?.map(({ src, width }) => `${src} ${width}w`).join(', ') ?? photo.src
 
 function Lightbox({ photos, current, onClose, onNavigate }: LightboxProps) {
-	const [isMobile, setIsMobile] = useState(false)
 	const dialogRef = useRef<HTMLDivElement | null>(null)
 	const lastFocusedRef = useRef<HTMLElement | null>(null)
-
-	useEffect(() => {
-		const media = window.matchMedia('(max-width: 779px)')
-		setIsMobile(media.matches)
-		const update = () => setIsMobile(media.matches)
-		media.addEventListener('change', update)
-		return () => media.removeEventListener('change', update)
-	}, [])
 
 	useEffect(() => {
 		const html = document.querySelector('html') as HTMLElement | null
@@ -75,7 +66,7 @@ function Lightbox({ photos, current, onClose, onNavigate }: LightboxProps) {
 			role="dialog"
 			aria-modal="true"
 			aria-label="Image gallery"
-			className="animate-modal-in fixed inset-0 z-100 flex items-center justify-center bg-black/80"
+			className="animate-modal-in safe-pad fixed inset-0 z-100 flex max-h-dvh items-center justify-center bg-black/80"
 		>
 			<button
 				type="button"
@@ -89,22 +80,22 @@ function Lightbox({ photos, current, onClose, onNavigate }: LightboxProps) {
 			<div aria-live="polite" className="sr-only">
 				Image {current + 1} of {photos.length}
 			</div>
-			{current !== 0 && !isMobile ? (
+			{current !== 0 ? (
 				<button
 					type="button"
 					aria-label="Previous image"
 					onClick={() => onNavigate(Math.max(0, current - 1))}
-					className="fixed left-2 top-0 z-10 flex h-full cursor-pointer items-center px-4 py-12 text-5xl text-[whitesmoke] opacity-50 hover:opacity-80"
+					className="fixed left-2 top-0 z-10 hidden h-full cursor-pointer items-center px-4 py-12 text-5xl text-[whitesmoke] opacity-50 hover:opacity-80 pointer-fine:flex"
 				>
 					<ChevronLeft className="h-[1em] w-[1em]" />
 				</button>
 			) : null}
-			{current !== photos.length - 1 && !isMobile ? (
+			{current !== photos.length - 1 ? (
 				<button
 					type="button"
 					aria-label="Next image"
 					onClick={() => onNavigate(Math.min(photos.length - 1, current + 1))}
-					className="fixed right-2 top-0 z-10 flex h-full cursor-pointer items-center px-4 py-12 text-5xl text-[whitesmoke] opacity-50 hover:opacity-80"
+					className="fixed right-2 top-0 z-10 hidden h-full cursor-pointer items-center px-4 py-12 text-5xl text-[whitesmoke] opacity-50 hover:opacity-80 pointer-fine:flex"
 				>
 					<ChevronRight className="h-[1em] w-[1em]" />
 				</button>
@@ -118,7 +109,10 @@ function Lightbox({ photos, current, onClose, onNavigate }: LightboxProps) {
 						sizes="(max-width: 1200px) 100vw, 1200px"
 						alt={photo.alt ?? 'knife'}
 						aria-hidden={index !== current}
-						style={{ maxWidth: photo.width, maxHeight: '1000px' }}
+						style={{
+							maxWidth: `min(${photo.width}px, 100%)`,
+							maxHeight: `min(${photo.height}px, 100%)`,
+						}}
 						className="select-none object-contain"
 						onMouseDown={(event) => event.preventDefault()}
 						onDragStart={(event) => event.preventDefault()}

@@ -71,3 +71,14 @@
 @utility shadow-gallery-hover {
 	box-shadow: -2px 5px 8px 2px rgba(0, 0, 0, 0.3);
 }
+
+@utility safe-pad {
+	padding-top: max(0.5rem, env(safe-area-inset-top));
+	padding-right: max(0.5rem, env(safe-area-inset-right));
+	padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+	padding-left: max(0.5rem, env(safe-area-inset-left));
+}
+
+.rtds-single-slide-styles {
+	overflow: hidden;
+}
