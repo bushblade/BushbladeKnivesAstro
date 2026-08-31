@@ -18,7 +18,6 @@ const srcSetOf = (photo: Photo) =>
 function Lightbox({ photos, current, onClose, onNavigate }: LightboxProps) {
 	const [isMobile, setIsMobile] = useState(false)
 	const dialogRef = useRef<HTMLDivElement | null>(null)
-	const closeButtonRef = useRef<HTMLButtonElement | null>(null)
 	const lastFocusedRef = useRef<HTMLElement | null>(null)
 
 	useEffect(() => {
@@ -35,7 +34,7 @@ function Lightbox({ photos, current, onClose, onNavigate }: LightboxProps) {
 		if (html) html.style.overflowY = 'hidden'
 
 		lastFocusedRef.current = document.activeElement as HTMLElement | null
-		closeButtonRef.current?.focus()
+		dialogRef.current?.querySelector<HTMLElement>('[role="slider"]')?.focus()
 
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
@@ -80,7 +79,6 @@ function Lightbox({ photos, current, onClose, onNavigate }: LightboxProps) {
 		>
 			<button
 				type="button"
-				ref={closeButtonRef}
 				aria-label="Close gallery"
 				onClick={onClose}
 				className="fixed right-4 top-[0.4rem] z-102 block h-8 w-8 cursor-pointer"
@@ -111,7 +109,7 @@ function Lightbox({ photos, current, onClose, onNavigate }: LightboxProps) {
 					<ChevronRight className="h-[1em] w-[1em]" />
 				</button>
 			) : null}
-			<Slider activeIndex={current} onSlideComplete={onNavigate} scaleOnDrag>
+			<Slider spring damping={18} activeIndex={current} onSlideComplete={onNavigate} scaleOnDrag>
 				{photos.map((photo, index) => (
 					<img
 						key={photo.key}
