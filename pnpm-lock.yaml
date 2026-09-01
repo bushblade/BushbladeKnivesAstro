@@ -41,7 +41,7 @@ importers:
         version: 3.6.1(@types/react@19.2.18)(react@19.2.8)
       react-touch-drag-slider:
         specifier: ^3.2.0
-        version: 3.2.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 3.2.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       sharp:
         specifier: ^0.35.1
         version: 0.35.4(@types/node@24.13.3)
@@ -2042,8 +2042,8 @@ packages:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
 
-  react-touch-drag-slider@3.2.1:
-    resolution: {integrity: sha512-mCx3nrtyk7dG3phmTLGUIOXtT+vSgS6W8N0XiXPMElGGkOCD/AIgSvrxZr1DmvPX7dVWnM5kLDTcBZLSMZrtaA==}
+  react-touch-drag-slider@3.2.2:
+    resolution: {integrity: sha512-wUJfUAmqS73btc/8S3aL8dPQUPER4ADVZiSjri9BmlRRQHaC9WBc1eP3NvtjIJ4Dsb4mj5N3+r7rV0eakaCphQ==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -4835,7 +4835,7 @@ snapshots:
 
   react-refresh@0.18.0: {}
 
-  react-touch-drag-slider@3.2.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  react-touch-drag-slider@3.2.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
