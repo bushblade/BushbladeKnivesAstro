@@ -22,18 +22,5 @@
 			"enabled": true
 		}
 	},
-	"agent": {
-		"git": {
-			"description": "Stages changes with git, analyzes the diff, and commits with a conventional commit message. Use when asked to stage or commit work. May split across multiple focused commits. All git operations must be delegated to this sub-agent rather than run directly by the primary agent.",
-			"mode": "subagent",
-			"model": "opencode-go/deepseek-v4-flash",
-			"permission": {
-				"read": "allow",
-				"bash": {
-					"*": "ask",
-					"git *": "allow"
-				}
-			}
-		}
-	}
+	"agent": {}
 }
